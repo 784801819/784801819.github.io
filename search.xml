@@ -5,10 +5,10 @@
     
     <entry>
       <title>我的第一篇博客</title>
-      <link href="2021/02/03/wo-de-di-yi-pian-bo-ke/"/>
-      <url>2021/02/03/wo-de-di-yi-pian-bo-ke/</url>
+      <link href="2021/02/03/js-ji-chu-zhi-shi-yi/"/>
+      <url>2021/02/03/js-ji-chu-zhi-shi-yi/</url>
       
-        <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.baidu.com/">www.baidu.com</a></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="原始-Primitive-类型"><a href="#原始-Primitive-类型" class="headerlink" title="原始(Primitive)类型"></a>原始(Primitive)类型</h2><blockquote><p>原型类型有哪几种? null是对象吗?</p></blockquote><ol><li>在JS中,存在着6种原始值,分别是:</li></ol><ul><li><code>boolean</code></li><li><code>null</code></li><li><code>undefined</code></li><li><code>number</code></li><li><code>string</code></li><li><code>symbol</code></li></ul><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.baidu.com/">www.baidu.com</a></p>]]></content>
       
       
       
