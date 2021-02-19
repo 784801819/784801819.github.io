@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="JS异步编程知识点整理, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | W.BOWEN&#39;s blog</title>
+    <title>JS异步编程知识点整理 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -234,7 +234,7 @@
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://gitee.com/wang-bowen" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +291,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://gitee.com/wang-bowen" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">JS异步编程知识点整理</h1>
                 </div>
             </div>
         </div>
@@ -429,9 +429,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -443,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-03
+                    2021-02-17
                 </div>
                 
 
@@ -464,15 +468,165 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h2 id="并发和并行区别"><a href="#并发和并行区别" class="headerlink" title="并发和并行区别"></a>并发和并行区别</h2><blockquote>
+<p>并发与并行的区别?</p>
+</blockquote>
+<ol>
+<li><p><code>并发</code>是宏观概念,分别有任务A和任务B,在一段时间内<code>通过任务间的切换</code>完成了这两个任务,这种情况称之为并发</p>
+</li>
+<li><p><code>并行</code>是微观概念,假设CPU中存在两个核心,那么可以同时完成任务A、B。<code>同时完成多个任务</code>的情况称之为并行</p>
+</li>
+</ol>
+<h2 id="回调函数-callback"><a href="#回调函数-callback" class="headerlink" title="回调函数(callback)"></a>回调函数(callback)</h2><blockquote>
+<p>什么是回调函数?回调函数的缺点?如何解决回调地狱的问题?</p>
+</blockquote>
+<p>回调函数的三个特点</p>
+<ul>
+<li>函数是我定义的</li>
+<li>我没有调用</li>
+<li>但最终执行了</li>
+</ul>
+<p>回调函数的缺点</p>
+<ul>
+<li>容易写出回调地狱。假如多个请求存在依赖性,可能会写出以下代码<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ajax(url, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 处理逻辑</span></span><br><span class="line">  ajax(url1, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//处理逻辑</span></span><br><span class="line">    ajax(url2, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//处理逻辑</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>不能使用<code>try...catch</code>捕获错误</li>
+<li>不能直接<code>return</code></li>
+</ul>
+<p>回调地狱</p>
+<ul>
+<li>回调地狱是回调函数嵌套调用,外部回调函数异步执行的结果是嵌套回调函数执行的条件</li>
+</ul>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><blockquote>
+<p>Promise的特点是什么,分别有什么优缺点?什么是promise链?Promise构造函数执行和then函数执行有什么区别?</p>
+</blockquote>
+<ol>
+<li>具体表达<ul>
+<li>语法上: Promise是一个构造函数</li>
+<li>功能上: prmise对象用来封装异步操作并恶意获取成功/失败的结果值</li>
+</ul>
+</li>
+<li>promise的三种状态<ul>
+<li>pending状态: 未确定的/初始的</li>
+<li>resolved状态: 成功时,调用resolve()后的状态</li>
+<li>rejected状态: 失败时,调用reject()后的状态</li>
+<li>成功的结果一般为value,失败的结果一般为reason</li>
+<li>抛出异常: pending ==&gt; rejected,返回一个一般值: pending ==&gt; resolved</li>
+<li><strong>状态只能改变一次,由pending变成其他状态后就不再改变</strong><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  resolv(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">  <span class="comment">// 无效</span></span><br><span class="line">  reject(<span class="string">&#x27;reject&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Promise的优缺点<ul>
+<li>优点:<ol>
+<li>调用回调函数的方式更灵活,可以在请求发出甚至结束后指定回调函数</li>
+<li>支持链式调用,可以解决回调地域问题</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>缺点:<ol>
+<li>无法取消Promise</li>
+<li>错误需要通过回调函数捕获(.then()/.catch())</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>使用prmise封装ajax请求函数<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">promiseAjax</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 使用xhr发送异步ajax请求</span></span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    xhr.open(<span class="string">&#x27;GET&#x27;</span>, url)</span><br><span class="line">    xhr.send()</span><br><span class="line">    xhr.onreadystatechange = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 如果请求未完成,直接结束</span></span><br><span class="line">      <span class="keyword">if</span>(xhr.readyState !== <span class="number">4</span>) <span class="keyword">return</span></span><br><span class="line">      <span class="comment">// 如果成功,调用resolve(),并指定成功的value</span></span><br><span class="line">      <span class="keyword">if</span>(xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">        resolve(<span class="built_in">JSON</span>.parse(xhr.responseText))</span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// 如果失败,调用reject(),并指定失败的reason</span></span><br><span class="line">        reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;请求失败&#x27;</span> + xhr.status))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>promise基本流程图解<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/yWq8OK"><img src="https://s3.ax1x.com/2021/02/18/yWq8OK.png" alt="yWq8OK.png"></a></li>
+<li>Promise构造函数: Promise(excutor) {}<ul>
+<li>excutor函数: 同步执行(resolve, reject) =&gt; {}</li>
+<li>resolve()函数: 内部定义成功时调用的函数</li>
+<li>reject()函数: 内部定义失败时调用的函数</li>
+<li><strong>excutor会在Promise内部立即执行同步回调,异步操作在执行器中执行</strong><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;111&#x27;</span>)</span><br><span class="line">  resolve(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;222&#x27;</span>)</span><br><span class="line"><span class="comment">// 先打印111再打印222</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Promise.prototype.then方法: (onResolved, onRejected) =&gt; {}<ul>
+<li>onResolved函数: 成功的回调函数 value =&gt; {}</li>
+<li>onRejected函数: 失败的回调函数 reason =&gt; {}</li>
+<li><strong>指定用于得到成功value的成功回调和用于得到失败reason的失败回调返回一个新的promise对象</strong></li>
+</ul>
+</li>
+<li>Promise.prototype.catch方法: (onRejected) =&gt; {}<ul>
+<li><strong>用于得到失败reason的失败回调</strong></li>
+</ul>
+</li>
+<li>Promise.all()方法: (promises) =&gt; {}<ul>
+<li>promises: 包含n个promise的数组</li>
+<li><strong>返回一个新的promise,只有所有的promise都成功才成功,只要有一个失败则直接失败</strong></li>
+</ul>
+</li>
+<li>Promise.race()方法: (promises) =&gt; {}</li>
+</ol>
+<ul>
+<li>promises: 包含n个promise的数组</li>
+<li><strong>返回一个新的promise,第一个完成的promise的结果状态决定最终的结果状态</strong></li>
+</ul>
+<ol start="11">
+<li>promise.then()返回的新promise的结果由什么决定</li>
+</ol>
+<ul>
+<li>由then()指定的回调函数执行的结果决定</li>
+<li>如果<code>抛出异常</code>,新promise的状态变为<code>rejected</code>,<code>reason</code>为抛出异常的值</li>
+<li>如果返回的是<code>非promise的任意值</code>,新promise的状态变为<code>resolved</code>,<code>value</code>为返回的值</li>
+<li>如果返回的是<code>新的promise</code>,当前promise的结果就会成为新promise的结果<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  resolve(<span class="number">1</span>)</span><br><span class="line">&#125;).then(</span><br><span class="line">  value =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value) <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="number">2</span></span><br><span class="line">  &#125;, </span><br><span class="line">  reason =&gt; <span class="built_in">console</span>.log(reason)</span><br><span class="line">).then(</span><br><span class="line">  value =&gt; <span class="built_in">console</span>.log(value),</span><br><span class="line">  reason =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(reason) <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line">  &#125;</span><br><span class="line">).then(</span><br><span class="line">  value =&gt; <span class="built_in">console</span>.log(value),<span class="comment">// 3</span></span><br><span class="line">  reason =&gt; <span class="built_in">console</span>.log(reason)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="12">
+<li>promise错误穿透</li>
+</ol>
+<ul>
+<li>原理相当于在每个then()中抛出一个失败的回调,一层层向下传递(<code>reason =&gt; &#123;throw reason&#125;</code>)</li>
+<li>当使用promise的链式调用时,可在最后指定失败的回调接收错误<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ... </span></span><br><span class="line">&#125;).catch(<span class="function"><span class="params">reason</span> =&gt;</span> &#123;&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>前面任何操作出现问题,都会传到最后的失败回调中处理</li>
+</ul>
+<ol start="13">
+<li>中断promise链</li>
+</ol>
+<ul>
+<li>在<code>回调函数</code>中返回一个pending状态的promise对象<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">() =&gt;</span> &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="async和await"><a href="#async和await" class="headerlink" title="async和await"></a>async和await</h2></li>
+</ul>
+<blockquote>
+<p>async和await的特点,优点和缺点分别是什么?<br>await原理是什么?</p>
+</blockquote>
+<p>一个函数如果加上<code>async</code>,那么该函数就会返回一个<code>Promise</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(test()) <span class="comment">// -&gt; Promise&#123;&lt;resolved: 1&gt;&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>async</code>就是将函数返回值使用<code>Promise.resolve()</code>包裹,和<code>then</code>中处理返回值一样</p>
+<p><code>await</code>表达式</p>
+<ul>
+<li><code>await</code>右侧的表达式一般为promise对象,但也可以是其他值</li>
+<li>如果表达式是promise对象,<code>await</code>返回的是promise成功的值</li>
+<li>如果表达式是其他值,直接将此值作为<code>await</code>的返回值</li>
+</ul>
+<p>注意点</p>
+<ul>
+<li><strong>async函数会立即执行结束,不会阻塞代码执行</strong></li>
+<li><code>await</code>必须写在<code>async</code>函数中,但<code>async</code>函数中可以没有<code>await</code></li>
+<li>如果<code>await</code>的promise失败了,就会抛出异常,需要通过<code>try...catch</code>来捕获处理</li>
+</ul>
+<p><code>async</code>和<code>await</code>可以说是异步终极解决方案,相比直接使用<code>Promise</code>来说,<code>优势</code>在于处理<code>then</code>的链式调用,能够更加清晰准确的写出代码,并且可以优雅的解决回调地狱问题,<code>缺点</code>在于,因为<code>await</code>将异步代码改造成同步代码,如果多个异步代码没有依赖性却使用了<code>await</code>会导致性能上的降低</p>
+<p><code>await</code>就是<code>generator</code>加上<code>Promise</code>的语法糖,且内部实现了自动执行<code>generator</code></p>
+<h2 id="常用的定时器函数"><a href="#常用的定时器函数" class="headerlink" title="常用的定时器函数"></a>常用的定时器函数</h2><blockquote>
+<p>setTimeout、setInterval、requestAnimationFrame各有什么特点?</p>
+</blockquote>
+<p><code>setTimeout</code>一般是延时多久,就在多久后执行。但是JS是单线程执行,如果定时器之前有影响性能的代码,<code>setTimeout</code>就不会按期完成</p>
+<p><code>setInterval</code>这个函数作用和<code>setTimeout</code>基本一致,只是该函数是每隔一段时间执行一次回调函数</p>
+<p>一般来说不建议使用<code>setInterval</code>。它和<code>setTimeout</code>一样,不能保证在预期的时间执行任务。<br>其次,它存在执行累积的问题,如果定时器执行过程中出现了耗时操作,多个回调函数会在耗时操作结束后同时执行,可能会带来性能上的问题</p>
+<p><code>requestAnimationFrame</code>自带函数节流功能,基本可以保证在16.6ms内只执行一次,并且该函数的延时效果是精确的,没有其他定时器时间不准的问题</p>
+<ol>
+<li><p>window.requestAnimationFrame(callback)</p>
+<ul>
+<li>该方法会告诉浏览器在下一次重绘重排之前调用所指定的函数</li>
+<li>参数: 该方法使用一个回调函数作为参数,这个回调函数会在浏览器下次重绘之前调用</li>
+<li>返回值: 用法和定时器的标识名差不多</li>
+</ul>
+</li>
+<li><p>window.cancelAnimationFrame(requestID)</p>
+<ul>
+<li>取消一个先前通过调用window.requestAnimationFrame()方法添加到计划中的动画帧请求</li>
+<li>requestID为调用window.requestAnimationFrame()方法的返回值</li>
+</ul>
+</li>
+</ol>
 
                 
             </div>
@@ -499,7 +653,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/02/03/hello-world/">https://784801819.github.io/2021/02/03/hello-world/</a>
+                    <a href="https://784801819.github.io/2021/02/17/js-yi-bu-bian-cheng-zhi-shi-dian/">https://784801819.github.io/2021/02/17/js-yi-bu-bian-cheng-zhi-shi-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -536,7 +690,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -976,13 +1134,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/03/js-ji-chu-zhi-shi-yi/">
+                <a href="/2021/02/19/shou-xie-promise/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="我的第一篇博客">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="手写Promise">
                         
-                        <span class="card-title">我的第一篇博客</span>
+                        <span class="card-title">手写Promise</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -993,7 +1151,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-03
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-19
                         </span>
                         <span class="publish-author">
                             
@@ -1004,22 +1162,30 @@
                     </div>
                 </div>
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/03/hello-world/">
+                <a href="/2021/02/15/es6-zhi-shi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ES6知识点整理">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">ES6知识点整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1030,7 +1196,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-15
                             </span>
                         <span class="publish-author">
                             
@@ -1040,7 +1206,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

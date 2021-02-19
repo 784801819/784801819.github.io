@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JS基础知识点整理(一), W.BOWEN&#39;s blog">
+    <meta name="keywords" content="ES6知识点整理, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>JS基础知识点整理(一) | W.BOWEN&#39;s blog</title>
+    <title>ES6知识点整理 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JS基础知识点整理(一)</h1>
+                    <h1 class="description center-align post-title">ES6知识点整理</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-03
+                    2021-02-15
                 </div>
                 
 
@@ -468,95 +468,117 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="基本数据类型-amp-引用数据类型"><a href="#基本数据类型-amp-引用数据类型" class="headerlink" title="基本数据类型&amp;引用数据类型"></a>基本数据类型&amp;引用数据类型</h2><blockquote>
-<p>基本数据类型有哪几种? null是对象吗?</p>
+                <h2 id="var、let以及const的区别"><a href="#var、let以及const的区别" class="headerlink" title="var、let以及const的区别"></a>var、let以及const的区别</h2><blockquote>
+<p>什么是提升?什么是暂时性死区?var、let以及const的区别?</p>
 </blockquote>
+<p>什么是提升</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// undefined </span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>从上述代码可以发现,虽然变量没有被声明,但却可以使用这个未被声明的变量,这种情况叫做提升,并且提升的是声明</p>
+<p>可以将代码这样来看</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// undefined</span></span><br><span class="line">a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>不仅var声明的变量会提升,函数声明也会被提升</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// f a() &#123;&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>变量提升&amp;函数提升总结</p>
+<ul>
+<li>找到var后将var后面的变量提前声明,<strong>但不赋值</strong></li>
+<li>找到function后定义对应的函数,<strong>函数在预解析的时候已经定义完毕</strong></li>
+<li>注意: <strong>函数提升的优先级要高于变量提升</strong>,如果函数已经存在就会忽略跳过</li>
+</ul>
+<p>let和const</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">1</span></span><br><span class="line"><span class="keyword">const</span> c = <span class="number">1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.b) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.c) <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a)</span><br><span class="line">  <span class="keyword">let</span> a</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+<p>首先在全局作用域下使用<code>let</code>和<code>const</code>声明变量,变量不会挂在到<code>window</code>上</p>
+<p>其次当我们在声明<code>a</code>之前如果使用了<code>a</code>,就会出现报错的情况<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/y6Tqk6"><img src="https://s3.ax1x.com/2021/02/15/y6Tqk6.png" alt="y6Tqk6.png"></a></p>
+<p>报错的原因是因为存在暂时性死区,不能在<code>let</code>和<code>const</code>声明前就使用变量,这也是<code>let</code>和<code>const</code>优于<code>var</code>的一点</p>
+<p>let&amp;const</p>
 <ol>
-<li><p>在JS中,存在着6种基本数据类型,分别是:</p>
-<ul>
-<li><code>Boolean</code></li>
-<li><code>Null</code></li>
-<li><code>undefined</code></li>
-<li><code>Number</code></li>
-<li><code>String</code></li>
-<li><code>Symbol</code></li>
+<li>let使用及特点<ul>
+<li>块级作用域声明</li>
+<li>let变量不允许重复定义</li>
+<li>变量提升:<ol>
+<li>全局变量提升: 会创建一个变量对象(<code>script</code>)来收集全局作用域下的let定义的变量,但没有赋值</li>
+<li>局部变量提升: 会将var、let定义的变量全部放在当前函数的变量对象中</li>
+<li>和var变量提升的区别: let提升的变量在未赋值前不允许被使用</li>
+</ol>
+</li>
 </ul>
 </li>
-<li><p>基本数据类型的特征:</p>
-<ul>
-<li>存储的是该对象的实际数据</li>
-<li>基本数据类型数据赋值给某一个变量之后值本身就不会再发生改变</li>
+<li>const使用及特点<ul>
+<li>块级作用域声明常量</li>
+<li>const定义的常量必须赋值,且不能再被更改</li>
 </ul>
-</li>
-<li><p>引用数据类型:</p>
-<ul>
-<li><code>Object</code></li>
-<li><code>Array</code></li>
-<li><code>Function</code></li>
-</ul>
-</li>
-<li><p>引用数据类型的特征: </p>
-<ul>
-<li>存储的是该对象在栈中的引用(地址),真实的数据存放在堆内存中</li>
-<li>引用数据类型的值可以通过其赋值的变量修改</li>
-</ul>
-</li>
-<li><p>对于null来说,说它是个对象类型,其实是错误的。虽然<code>typeof null</code>会输出<code>object</code>,但是只是JS存在的一个悠久BUG。再JS最初版本中使用的是32位系统,为了性能考虑使用拉低存储变量的类型信息,<code>000</code>开头代表是对象,然而<code>null</code>表示为全零,所有误判为<code>object</code></p>
 </li>
 </ol>
-<h2 id="对象-Object-类型"><a href="#对象-Object-类型" class="headerlink" title="对象(Object)类型"></a>对象(Object)类型</h2><blockquote>
-<p>对象类型和原始类型的不同之处? 函数参数是对象会发生什么问题?</p>
+<p>总结:</p>
+<ul>
+<li>函数提升优先于变量提升,函数提升会把整个函数挪到作用域顶部,变量提升只会把声明挪到作用于顶部</li>
+<li><code>var</code>存在提升,我们能在声明之前使用。<code>let</code>、<code>const</code>因为暂时性死区的原因,不能在声明前使用</li>
+<li><code>var</code>在全局作用域下声明变量会挂载到window上,其他两个不会</li>
+</ul>
+<h2 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h2><blockquote>
+<p>原型如何实现继承?</p>
 </blockquote>
-<ol>
-<li>在JS中,除了原始类型其他的都是对象类型。对象类型和原始类型不同的是,原始类型存储的是值,对象了些存储的是地址(指针)。当创建了一个对象类型的时候,计算机会在内存中开辟一块空间存放值,但我们需要找到这个空间,这个空间会拥有一个地址(指针)<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br></pre></td></tr></table></figure>
-对于常量a来说,假设内存地址(指针)为<code>#001</code>,那么在地址<code>#001</code>的位置存放了值<code>[]</code>,常量<code>a</code>存放了地址(指针)<code>#001</code>,如下<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br><span class="line"><span class="keyword">const</span> b = a</span><br><span class="line">b.push(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-将变量赋值给另外一个变量时,复制的是原本变量的地址(指针),也就是说当前变量<code>b</code>存放的地址(指针)也是<code>#001</code>,当进行数据修改的时候,就会修改存放在地址(指针)<code>#001</code>上的值,导致两个变量的值都发生了改变。</li>
-<li>函数参数是对象的情况:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">Person</span>) </span>&#123;</span><br><span class="line">  person.age = <span class="number">23</span></span><br><span class="line">  person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;wbw&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> person</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = &#123;</span><br><span class="line">  name: <span class="string">&#x27;lxd&#x27;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p2 = test(p1)</span><br><span class="line"><span class="built_in">console</span>.log(p1) <span class="comment">// -&gt; &#123;name: &#x27;lxd&#x27;, age: 23&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(p2) <span class="comment">// -&gt; &#123;name: &#x27;wbw&#x27;, age: 18&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="typeof-vs-instanceof"><a href="#typeof-vs-instanceof" class="headerlink" title="typeof vs instanceof"></a>typeof vs instanceof</h2></li>
-</ol>
-<blockquote>
-<p>typeof是否能正确判断类型? instanceof能正确判断对象的原理是什么?</p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">  <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.getAll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name, <span class="built_in">this</span>.age)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  Person.call(<span class="built_in">this</span>, name, age) <span class="comment">// 父类的方法在子类中执行,如果直接调用,会导致window对象上添加了不必要的属性</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Person() <span class="comment">// 让子类的原型成为父类的实例</span></span><br><span class="line"><span class="keyword">const</span> child = <span class="keyword">new</span> Child(<span class="string">&#x27;wbw&#x27;</span>, <span class="number">23</span>)</span><br><span class="line"></span><br><span class="line">child.getAll() <span class="comment">// &#x27;wbw&#x27;, 23</span></span><br><span class="line"><span class="built_in">console</span>.log(child <span class="keyword">instanceof</span> Person) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>该继承的方式核心是在子类的构造函数中通过<code>Person.call(this)</code>继承父类的属性,通过<code>Child.prototype = new Person()</code>改变Child的原型为父类的实例来继承父类的函数</p>
+<p>这种继承方式<code>优点</code>在于构造函数可以传参,不会与父类引用属性共享,可以复用父类的函数,<code>缺点</code>是继承父类函数的时候调用了父类构造函数,导致子类的原型上多了不需要的属性,存在内存上的浪费</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ygEOYV"><img src="https://s3.ax1x.com/2021/02/16/ygEOYV.png" alt="ygEOYV.png"></a></p>
+<h3 id="寄生组合继承"><a href="#寄生组合继承" class="headerlink" title="寄生组合继承"></a>寄生组合继承</h3><p>优化了继承父类函数时调用了构造函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">  <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.getAll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name, <span class="built_in">this</span>.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  Person.call(<span class="built_in">this</span>, name, age) <span class="comment">// 借用构造函数继承</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Person.prototype, &#123;</span><br><span class="line">  <span class="title">constructor</span>: &#123;</span><br><span class="line">    value: Child,</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> child = <span class="keyword">new</span> Child(<span class="string">&#x27;wbw&#x27;</span>, <span class="number">23</span>)</span><br><span class="line">child.getAll() <span class="comment">// &#x27;wbw&#x27;, 23</span></span><br><span class="line"><span class="built_in">console</span>.log(child <span class="keyword">instanceof</span> Person)</span><br></pre></td></tr></table></figure>
+<p>该继承实现的核心是<code>将父类的原型赋值给了子类</code>,并将<code>构造函数设置为子类</code>,这样解决了无用的父类属性问题,还能正确找到子类的构造函数</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ygEvSU"><img src="https://s3.ax1x.com/2021/02/16/ygEvSU.png" alt="ygEvSU.png"></a></p>
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><blockquote>
+<p>为什么要使用模块化?都有哪几种方式可以实现模块化?各有什么特点?</p>
 </blockquote>
-<ol>
-<li><code>typeof</code>对于基本数据类型来说,除了<code>null</code>都可以显示正确的类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// &#x27;number&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;1&#x27;</span> <span class="comment">// &#x27;string&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// &#x27;undefined&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// &#x27;boolean&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">Symbol</span>() <span class="comment">// &#x27;symbol&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><code>typeof</code>对于引用数据类型来说,除了函数都会显示<code>object</code>,所有<code>typeof</code>不能准确判断变量到底是什么类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> [] <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">console</span>.log <span class="comment">// &#x27;function&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>如果像判断一个对象的正确类型,这时候可以考虑使用<code>instanceof</code>,因为内部机制是通过<code>原型链</code>来判断的<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person()</span><br><span class="line">p1 <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">str <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line">str1 <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-注意: 对于基本数据类型来说,直接通过<code>instanceof</code>来判断类型是不行的</li>
-</ol>
-<h2 id="类型转换-未完！"><a href="#类型转换-未完！" class="headerlink" title="类型转换(未完！)"></a>类型转换(未完！)</h2><ol>
-<li>首先,在JS中类型转换只有三种情况,分别是:<ul>
-<li>转换为布尔值(Boolean)</li>
-<li>转换为数字(Number)</li>
-<li>转换为字符串(String)</li>
+<p>模块化带来的好处:</p>
+<ul>
+<li>解决命名冲突</li>
+<li>提供复用性</li>
+<li>提高代码可维护性</li>
 </ul>
-</li>
-<li>转Boolean<ul>
-<li>在条件判断时,除了<code>undefined</code>, <code>null</code>, <code>false</code>, <code>NaN</code>, <code>&#39;&#39;,</code> <code>0</code>, <code>-0</code>,其他所有值都能转为<code>true</code>,包括所有对象</li>
-</ul>
-</li>
-</ol>
-<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><blockquote>
-<p>如何正确判断this? 箭头函数的this是什么?</p>
+<h3 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h3><p>通过函数作用域解决命名冲突、污染全局作用域的问题</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">variable</span>) </span>&#123;</span><br><span class="line">  variable.test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="comment">// 声明各种变量、函数都不会污染全局作用域</span></span><br><span class="line">&#125;)(variable)</span><br></pre></td></tr></table></figure>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><blockquote>
+<p>Proxy可以实现什么功能?</p>
 </blockquote>
-<ol>
-<li>this是一个关键字、变量</li>
-<li>this的指向问题<ul>
-<li>函数this不是函数定义时决定的</li>
-<li>函数this指向看谁如何调用当前的函数</li>
+<p>Vue3.0中通过<code>Proxy</code>来替换原本的<code>Object.defineProperty()</code>来实现数据响应式。Proxy是ES6中新增的功能,它可以用来自定义对象中的操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler)</span><br></pre></td></tr></table></figure>
+<p>其中<code>target</code>代表需要添加代理的对象,<code>handler</code>用来自定义对象中的操作,比如用来自定义<code>set</code>或者<code>get</code>函数</p>
+<p><code>Proxy</code>不需要一层层递归为每个属性添加代理,性能上更好,并且原本的实现有一些数据更新不能监听到,但是<code>Proxy</code>可以完美监听到任何方式的数据改变,但可能兼容性不好</p>
+<h2 id="map-filter-reduce"><a href="#map-filter-reduce" class="headerlink" title="map,filter,reduce"></a>map,filter,reduce</h2><blockquote>
+<p>map,filter,reduce各有什么作用?</p>
+</blockquote>
+<p><code>map</code>返回一个新的数组,数组中的元素为原始数组调用函数处理后的值(不会对空数组进行检测)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">arr.map(value = value + <span class="number">1</span>) <span class="comment">// ==&gt; [2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<p>map语法: map((item, index, arr) =&gt; {}),回调函数接收三个参数,分别是<code>当前索引元素</code>,<code>索引</code>,<code>原数组</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>].map(<span class="built_in">parseInt</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一轮遍历<code>parseInt(&#39;1,&#39; 0) -&gt; 1</code></li>
+<li>第二轮遍历<code>parseInt(&#39;2&#39;, 1) -&gt; NaN</code></li>
+<li>第三轮遍历<code>parseInt(&#39;3&#39;, 2) -&gt; NaN</code></li>
 </ul>
+<p><code>filter</code>返回一个新的数组,在遍历数组的时候将返回值为true的元素放入新数组中,可以利用这个函数删除一些不需要的元素</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> newArr = arr.filter(<span class="function"><span class="params">item</span> =&gt;</span> item !== <span class="number">6</span>)</span><br><span class="line"><span class="built_in">console</span>.log(newArr) <span class="comment">// [1, 2, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<p>filter语法: filter((item, index, arr) =&gt; {}),回调函数接收三个参数,分别是<code>当前索引元素</code>,<code>索引</code>,<code>原数组</code></p>
+<p><code>reduce</code>接收一个函数作为累加器,数组中的每个值从左到右开始递减,最终计算为一个值并返回</p>
+<p>如果想实现一个功能将函数里的元素全部相加得到一个值,可以这样写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> total = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">  total += arr[i]</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(total) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p>如果使用<code>reduce</code>的话就可以将遍历部分代码优化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> result = arr.reduce(<span class="function">(<span class="params">total, currentVal</span>) =&gt;</span> total + currentVal, <span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(result) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p><code>reduce</code>语法: reduce((total, currentVal, currentIndex, arr) =&gt; {}, init),<strong>其中total为初始值或计算结束后的返回值;init为传递给函数的初始值(如果提供了init,total取值为init,currentVal;如果没有提供init,那么total去数组中的第一个值,currentVal取数组中第二个值)</strong></p>
+<p>对于reduce来讲,它接收两个参数,分别是回调函数和初始值,接下来分解上述代码中<code>reduce</code>的过程</p>
+<ul>
+<li><p>首先初始值为<code>0</code>,该值会在执行第一次回调函数时作为第一个参数传入</p>
 </li>
-<li>this指向分类<ul>
-<li>函数自调用时<code>this</code>一定指向<code>window</code></li>
-<li>在<code>事件当中</code>,回调函数中的this指向事件对象(比如点击事件)</li>
-<li><code>对象.方法()</code>的this指向对象本身</li>
-<li><code>构造函数</code>的this指向当前构造函数的实例对象</li>
-<li><code>箭头函数</code>中没有this,一般它的this指向其外部作用域中的this,如果外部没有函数,this指向window(注意: <strong>箭头函数的this一旦被绑定,就不会再被任何方式改变</strong>)</li>
-<li><code>fun.call/apply(obj)</code>,调用函数,指定函数中的this为第一参数的值,如果第一个参数为空,那么默认为window</li>
-<li><code>ajax回调/定时器回调</code>中的this永远指向window</li>
+<li><p>回调函数接收四个参数,分别为<code>累加器</code>,<code>当前元素</code>,<code>当前索引</code>和<code>原数组</code></p>
+</li>
+<li><p>在第一次执行回调函数时,当前值和初始值相加得出结果<code>1</code>,该结果会在第二次执行回调函数当作第一个参数传入</p>
+</li>
+<li><p>在第二次执行回调函数时,相加的值就分别是<code>1</code>和<code>2</code>,以此类推,所以最终结果为<code>6</code>并返回</p>
+<p>通过<code>reduce</code>来实现<code>map</code>函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">const</span> mapArr = arr.map(<span class="function"><span class="params">itemVal</span> =&gt;</span> itemVal * <span class="number">2</span>)</span><br><span class="line"><span class="keyword">const</span> reduceArr = arr.reduce(<span class="function">(<span class="params">total, currentVal</span>) =&gt;</span> &#123;</span><br><span class="line">  total.push(currentVal * <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">return</span> total <span class="comment">// 返回结果</span></span><br><span class="line">&#125;, [])</span><br><span class="line"><span class="built_in">console</span>.log(mapArr, reduceArr) <span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
 </ul>
-</li>
-<li>注意点: 不管给函数<code>bind</code>几次,<code>fn</code>中的<code>this</code>永远由<code>第一次bind</code>决定,不会再更改<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// ==&gt; 输出的是window而不是a</span></span><br><span class="line">&#125;</span><br><span class="line">fn.bind().bind(a) </span><br></pre></td></tr></table></figure></li>
-</ol>
 
                 
             </div>
@@ -583,7 +605,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/">https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/</a>
+                    <a href="https://784801819.github.io/2021/02/15/es6-zhi-shi-dian/">https://784801819.github.io/2021/02/15/es6-zhi-shi-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1064,13 +1086,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/08/js-ji-chu-zhi-shi-er/">
+                <a href="/2021/02/17/js-yi-bu-bian-cheng-zhi-shi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JS基础知识点整理(二)">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="JS异步编程知识点整理">
                         
-                        <span class="card-title">JS基础知识点整理(二)</span>
+                        <span class="card-title">JS异步编程知识点整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1081,7 +1103,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-17
                         </span>
                         <span class="publish-author">
                             
@@ -1106,16 +1128,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/03/js-ji-chu-zhi-shi-yi/">
+                <a href="/2021/02/08/js-ji-chu-zhi-shi-er/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="JS基础知识点整理(一)">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JS基础知识点整理(二)">
                         
-                        <span class="card-title">JS基础知识点整理(一)</span>
+                        <span class="card-title">JS基础知识点整理(二)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1126,7 +1148,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-08
                             </span>
                         <span class="publish-author">
                             
@@ -1136,7 +1158,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JS基础知识点整理(一), W.BOWEN&#39;s blog">
+    <meta name="keywords" content="JS基础知识点整理(二), W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>JS基础知识点整理(一) | W.BOWEN&#39;s blog</title>
+    <title>JS基础知识点整理(二) | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JS基础知识点整理(一)</h1>
+                    <h1 class="description center-align post-title">JS基础知识点整理(二)</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-03
+                    2021-02-08
                 </div>
                 
 
@@ -468,95 +468,115 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="基本数据类型-amp-引用数据类型"><a href="#基本数据类型-amp-引用数据类型" class="headerlink" title="基本数据类型&amp;引用数据类型"></a>基本数据类型&amp;引用数据类型</h2><blockquote>
-<p>基本数据类型有哪几种? null是对象吗?</p>
+                <h2 id="vs"><a href="#vs" class="headerlink" title="== vs ==="></a>== vs ===</h2><blockquote>
+<p>== 和 === 有什么区别?</p>
 </blockquote>
 <ol>
-<li><p>在JS中,存在着6种基本数据类型,分别是:</p>
-<ul>
-<li><code>Boolean</code></li>
-<li><code>Null</code></li>
-<li><code>undefined</code></li>
-<li><code>Number</code></li>
-<li><code>String</code></li>
-<li><code>Symbol</code></li>
-</ul>
-</li>
-<li><p>基本数据类型的特征:</p>
-<ul>
-<li>存储的是该对象的实际数据</li>
-<li>基本数据类型数据赋值给某一个变量之后值本身就不会再发生改变</li>
-</ul>
-</li>
-<li><p>引用数据类型:</p>
-<ul>
-<li><code>Object</code></li>
-<li><code>Array</code></li>
-<li><code>Function</code></li>
-</ul>
-</li>
-<li><p>引用数据类型的特征: </p>
-<ul>
-<li>存储的是该对象在栈中的引用(地址),真实的数据存放在堆内存中</li>
-<li>引用数据类型的值可以通过其赋值的变量修改</li>
-</ul>
-</li>
-<li><p>对于null来说,说它是个对象类型,其实是错误的。虽然<code>typeof null</code>会输出<code>object</code>,但是只是JS存在的一个悠久BUG。再JS最初版本中使用的是32位系统,为了性能考虑使用拉低存储变量的类型信息,<code>000</code>开头代表是对象,然而<code>null</code>表示为全零,所有误判为<code>object</code></p>
-</li>
+<li>对于<code>==</code>来说,如果对比双方的类型<strong>不一样</strong>的话,就会进行<strong>类型转换</strong>,</li>
 </ol>
-<h2 id="对象-Object-类型"><a href="#对象-Object-类型" class="headerlink" title="对象(Object)类型"></a>对象(Object)类型</h2><blockquote>
-<p>对象类型和原始类型的不同之处? 函数参数是对象会发生什么问题?</p>
-</blockquote>
-<ol>
-<li>在JS中,除了原始类型其他的都是对象类型。对象类型和原始类型不同的是,原始类型存储的是值,对象了些存储的是地址(指针)。当创建了一个对象类型的时候,计算机会在内存中开辟一块空间存放值,但我们需要找到这个空间,这个空间会拥有一个地址(指针)<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br></pre></td></tr></table></figure>
-对于常量a来说,假设内存地址(指针)为<code>#001</code>,那么在地址<code>#001</code>的位置存放了值<code>[]</code>,常量<code>a</code>存放了地址(指针)<code>#001</code>,如下<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br><span class="line"><span class="keyword">const</span> b = a</span><br><span class="line">b.push(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-将变量赋值给另外一个变量时,复制的是原本变量的地址(指针),也就是说当前变量<code>b</code>存放的地址(指针)也是<code>#001</code>,当进行数据修改的时候,就会修改存放在地址(指针)<code>#001</code>上的值,导致两个变量的值都发生了改变。</li>
-<li>函数参数是对象的情况:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">Person</span>) </span>&#123;</span><br><span class="line">  person.age = <span class="number">23</span></span><br><span class="line">  person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;wbw&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> person</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = &#123;</span><br><span class="line">  name: <span class="string">&#x27;lxd&#x27;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p2 = test(p1)</span><br><span class="line"><span class="built_in">console</span>.log(p1) <span class="comment">// -&gt; &#123;name: &#x27;lxd&#x27;, age: 23&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(p2) <span class="comment">// -&gt; &#123;name: &#x27;wbw&#x27;, age: 18&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="typeof-vs-instanceof"><a href="#typeof-vs-instanceof" class="headerlink" title="typeof vs instanceof"></a>typeof vs instanceof</h2></li>
+<ul>
+<li>假如需要对比x和y是否相同,就会进行如下判断<ol>
+<li>首先会判断两者类型是否相同。相同的话就比较大小</li>
+<li>类型不相同的话,那么就会进行类型转换</li>
+<li>会先判断是否在对比<code>null</code>和<code>undefined</code>,是的话就会返回<code>true</code></li>
+<li>判断两者类型是否为<code>string</code>和<code>number</code>,是的话就会将字符串转换为<code>number类型</code><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> == <span class="string">&#x27;1&#x27;</span> <span class="comment">// ==&gt; 1 == 1</span></span><br></pre></td></tr></table></figure></li>
+<li>判断其中一方是否为<code>Boolean</code>,是的话就会把<code>Boolean</code>转为<code>number</code>再进行判断<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;1&#x27;</span> == <span class="literal">true</span> <span class="comment">// ==&gt; 第一步 &#x27;1&#x27; == 1 ==&gt; 第二步 1 == 1 </span></span><br></pre></td></tr></table></figure></li>
+<li>判断其中一方是否为<code>object</code>且另一方为<code>string</code>、<code>number</code>或者<code>symbol</code>,是的话就会把<code>object</code>转为原始类型再进行判断<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;1&#x27;</span> == &#123;<span class="attr">name</span>: <span class="string">&#x27;wbw&#x27;</span>&#125; <span class="comment">// ==&gt; &#x27;1&#x27; == &#x27;[object Object]&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li>流程图:<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/y0wCfs"><img src="https://s3.ax1x.com/2021/02/10/y0wCfs.md.png" alt="y0wCfs.md.png"></a></li>
 </ol>
 <blockquote>
-<p>typeof是否能正确判断类型? instanceof能正确判断对象的原理是什么?</p>
+<p>对于[] == ![]的答案是什么?</p>
+</blockquote>
+<ul>
+<li>根据运算符优先级: !的优先级是大于==的,所有会先执行![]</li>
+<li>![]会先转换为boolean值,为false.相当于: [] == false</li>
+<li>根据规则来看,boolean值会转换为number, 相当于: [] == 0</li>
+<li>根据规则来看,如果一方为object另一方为string、number、symbol会将object转换为原始类型再判断,所以[]会通过.toString()方法转换为<code>&quot;</code>,相当于: “ == 0</li>
+<li>根据规则来看,string类型会转换为number类型,相当于: 0 == 0</li>
+<li>所以最终结果为<code>true</code></li>
+</ul>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><blockquote>
+<p>什么是闭包?</p>
 </blockquote>
 <ol>
-<li><code>typeof</code>对于基本数据类型来说,除了<code>null</code>都可以显示正确的类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// &#x27;number&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;1&#x27;</span> <span class="comment">// &#x27;string&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// &#x27;undefined&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// &#x27;boolean&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">Symbol</span>() <span class="comment">// &#x27;symbol&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><code>typeof</code>对于引用数据类型来说,除了函数都会显示<code>object</code>,所有<code>typeof</code>不能准确判断变量到底是什么类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> [] <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">console</span>.log <span class="comment">// &#x27;function&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>如果像判断一个对象的正确类型,这时候可以考虑使用<code>instanceof</code>,因为内部机制是通过<code>原型链</code>来判断的<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person()</span><br><span class="line">p1 <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">str <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line">str1 <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-注意: 对于基本数据类型来说,直接通过<code>instanceof</code>来判断类型是不行的</li>
-</ol>
-<h2 id="类型转换-未完！"><a href="#类型转换-未完！" class="headerlink" title="类型转换(未完！)"></a>类型转换(未完！)</h2><ol>
-<li>首先,在JS中类型转换只有三种情况,分别是:<ul>
-<li>转换为布尔值(Boolean)</li>
-<li>转换为数字(Number)</li>
-<li>转换为字符串(String)</li>
+<li><p>闭包的形成</p>
+<ul>
+<li>两个函数嵌套关系</li>
+<li>内部函数可以访问外部函数的局部变量</li>
+<li>使用内部函数(注意: 函数变量提升的时候如果内部函数没有被使用,在预解析的过程中就不会定义内部函数)<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 闭包的简单实现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">0</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    a++</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> B</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = A()</span><br><span class="line">b()</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li>转Boolean<ul>
-<li>在条件判断时,除了<code>undefined</code>, <code>null</code>, <code>false</code>, <code>NaN</code>, <code>&#39;&#39;,</code> <code>0</code>, <code>-0</code>,其他所有值都能转为<code>true</code>,包括所有对象</li>
+<li><p>什么是闭包?</p>
+<ul>
+<li>闭包是一个存在内部函数的引用关系</li>
+<li>该引用指向的是外部函数的局部变量对象(前提是内部函数使用了外部函数的局部变量)</li>
 </ul>
 </li>
-</ol>
-<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><blockquote>
-<p>如何正确判断this? 箭头函数的this是什么?</p>
+<li><p>闭包的作用</p>
+<ul>
+<li>延长外部函数的变量对象的生命周期</li>
+<li>使用闭包能够间接从函数外部访问函数内部的私有变量</li>
+</ul>
+</li>
+<li><p>使用闭包的注意点</p>
+<ul>
+<li>及时清除闭包,不然会造成内存泄露溢出(让内部函数成为垃圾对象被回收机制回收)</li>
+</ul>
+<blockquote>
+<p>循环中使用闭包解决<code>var</code>定义函数的问题</p>
 </blockquote>
-<ol>
-<li>this是一个关键字、变量</li>
-<li>this的指向问题<ul>
-<li>函数this不是函数定义时决定的</li>
-<li>函数this指向看谁如何调用当前的函数</li>
-</ul>
-</li>
-<li>this指向分类<ul>
-<li>函数自调用时<code>this</code>一定指向<code>window</code></li>
-<li>在<code>事件当中</code>,回调函数中的this指向事件对象(比如点击事件)</li>
-<li><code>对象.方法()</code>的this指向对象本身</li>
-<li><code>构造函数</code>的this指向当前构造函数的实例对象</li>
-<li><code>箭头函数</code>中没有this,一般它的this指向其外部作用域中的this,如果外部没有函数,this指向window(注意: <strong>箭头函数的this一旦被绑定,就不会再被任何方式改变</strong>)</li>
-<li><code>fun.call/apply(obj)</code>,调用函数,指定函数中的this为第一参数的值,如果第一个参数为空,那么默认为window</li>
-<li><code>ajax回调/定时器回调</code>中的this永远指向window</li>
-</ul>
-</li>
-<li>注意点: 不管给函数<code>bind</code>几次,<code>fn</code>中的<code>this</code>永远由<code>第一次bind</code>决定,不会再更改<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// ==&gt; 输出的是window而不是a</span></span><br><span class="line">&#125;</span><br><span class="line">fn.bind().bind(a) </span><br></pre></td></tr></table></figure></li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">  &#125;, i * <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决方法1,使用闭包的方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;, i * <span class="number">1000</span>)</span><br><span class="line">  &#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决方法2,使用let关键字</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">  &#125;, i * <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h2></li>
 </ol>
+<blockquote>
+<p>什么是浅拷贝?如何实现浅拷贝?什么是深拷贝?如何实现深拷贝?</p>
+</blockquote>
+<p>对象类型在负值的过程中其实是复制了地址,从而导致改变了一方其他也都被改变的情况。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = a</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>首先可以通过<code>Object.assign</code>来解决,<code>Object.assign</code>只会拷贝所有的属性值到新的对象中,如果属性值是对象或数组的话,拷贝的是地址,所以该方法为浅拷贝</p>
+<ul>
+<li>语法: Object.assign(目标对象, 源对象…)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> result = <span class="built_in">Object</span>.assign(b, a)</span><br><span class="line">a.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// &#123;age: 18&#125;</span></span><br></pre></td></tr></table></figure>
+<p>还可以通过展开运算符<code>...</code>来实现浅拷贝</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>但是浅拷贝只能解决第一层的问题,如果接下去的值中还有对象的话,两者享有相同的地址,那么<code>Object.assign</code>就解决不了了,需要用到<code>深拷贝</code></p>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>可以通过JSON.parse(JSON.stringify(object))解决</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">18</span>,</span><br><span class="line">  job: &#123;</span><br><span class="line">    first: <span class="string">&#x27;student&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(a))</span><br><span class="line">a.job[first] = <span class="string">&#x27;Web&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b.job.first) <span class="comment">// student</span></span><br></pre></td></tr></table></figure>
+<p>该方法的局限性: </p>
+<ul>
+<li>会忽略undefined</li>
+<li>会忽略symbol</li>
+<li>不能序列化函数</li>
+</ul>
+<p><strong>实现简单的深拷贝</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkoutType</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 调用对象原型上的方法toString,利用call将this指向改变,得到[xxx Xxx]最后使用slice截取字符串(例如: [object Object] ==&gt; Object)</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(target).slice(<span class="number">8</span>, -<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义深克隆</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result</span><br><span class="line">  <span class="keyword">let</span> targetType = checkoutType(target)</span><br><span class="line">  <span class="comment">// 判断数据类型是Array、Object或其他(基本数据类型或函数)</span></span><br><span class="line">  <span class="keyword">if</span>(targetType === <span class="string">&#x27;Array&#x27;</span>) &#123;</span><br><span class="line">    result = []</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(targetType === <span class="string">&#x27;Object&#x27;</span>) &#123;</span><br><span class="line">    result = &#123;&#125;</span><br><span class="line">  &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// 如果是其他类型,不做处理直接返回target</span></span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通过for...in...遍历数组或对象,for...of无法遍历对象</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> item <span class="keyword">in</span> target) &#123;</span><br><span class="line">    <span class="comment">// 得到数组或对象每一项的值</span></span><br><span class="line">    <span class="keyword">let</span> value = target[item]</span><br><span class="line">    <span class="comment">// 如果数组或对象内部嵌套引用数据类型,需要继续处理</span></span><br><span class="line">    <span class="keyword">if</span>(checkoutType(value) === <span class="string">&#x27;Array&#x27;</span> || <span class="string">&#x27;Object&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// 递归方式</span></span><br><span class="line">      result[item] = deepClone(value)</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      result[item] = value <span class="comment">// 基本数据类型赋值</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><blockquote>
+<p>如何理解原型?如何理解原型链?</p>
+</blockquote>
+<h3 id="原型-1"><a href="#原型-1" class="headerlink" title="原型"></a>原型</h3><ol>
+<li>每个<code>构造函数</code>都有一个<code>prototype属性</code>,该属性指向的是该构造函数的<code>原型对象</code>(显示原型对象,可以直接操作)</li>
+<li><code>原型对象</code>上有一个<code>constructor属性</code>,该属性指回<code>构造函数</code></li>
+<li>每个<code>实例对象</code>身上都有一个<code>__proto__</code>,该属性指向的也是<code>原型对象</code>(隐式原型对象,ES6之前不能直接操作)</li>
+<li><code>构造函数</code>的显示原型对象 === 当前<code>构造函数</code>的实例对象的隐式原型对象</li>
+<li>给<code>原型对象</code>添加方法/属性时,函数的<code>实例对象</code>自动拥有原型上的属性/方法(<strong>原型对象的作用,避免重复代码节省内存空间</strong>)</li>
+<li><strong>所有的原型都是Object的实例</strong></li>
+</ol>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><ol>
+<li>查找对象的属性/方法的时候先在自身查找,如果没有,沿着__proto__找原型对象</li>
+<li>如果原型对象上还没有,会继续沿着原型对象属性__proto__向上查找,直到找到Object的原型对象</li>
+<li>如果还没有找到最终指向null,返回undefined</li>
+<li>总结: <strong>沿着__proto__查找的这条链就是原型链</strong></li>
+</ol>
+<p>通过图解深入理解原型和原型链<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/y6hltg"><img src="https://s3.ax1x.com/2021/02/15/y6hltg.png" alt="y6hltg.png"></a></p>
 
                 
             </div>
@@ -583,7 +603,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/">https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/</a>
+                    <a href="https://784801819.github.io/2021/02/08/js-ji-chu-zhi-shi-er/">https://784801819.github.io/2021/02/08/js-ji-chu-zhi-shi-er/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1064,13 +1084,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/08/js-ji-chu-zhi-shi-er/">
+                <a href="/2021/02/15/es6-zhi-shi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JS基础知识点整理(二)">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ES6知识点整理">
                         
-                        <span class="card-title">JS基础知识点整理(二)</span>
+                        <span class="card-title">ES6知识点整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1081,7 +1101,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-08
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-15
                         </span>
                         <span class="publish-author">
                             
@@ -1106,7 +1126,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2021/02/03/js-ji-chu-zhi-shi-yi/">
@@ -1136,7 +1156,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
