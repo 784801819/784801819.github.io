@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浏览器缓存机制, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="浏览器渲染原理, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浏览器缓存机制 | W.BOWEN&#39;s blog</title>
+    <title>浏览器渲染原理 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浏览器缓存机制</h1>
+                    <h1 class="description center-align post-title">浏览器渲染原理</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                <span class="chip bg-color">浏览器</span>
+                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                                <span class="chip bg-color">性能优化</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-26
+                    2021-02-27
                 </div>
                 
 
@@ -468,89 +468,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>缓存可以说是性能优化中简单高效的优化方式了,它可以<strong>显著减少网络传输带来的损耗</strong></p>
-<p>对于一个数据请求来说,可以分别发起网络请求、后端处理、浏览器响应三个步骤。浏览器缓存可以帮助我们在第一和第三步骤中优化性能。比如直接使用缓存而不发起请求,或者发起了请求但后端存储的数据和前端一致,那么就没有必要再将数据传回来,这样就减少了响应数据。</p>
-<h2 id="缓存位置"><a href="#缓存位置" class="headerlink" title="缓存位置"></a>缓存位置</h2><p>从缓存位置上来说分为四种,并且各自有优先级,当一次查找缓存且都没有命中的时候,才回去请求网络</p>
+                <h2 id="浏览器接收到HTML文件并转换为DOM树"><a href="#浏览器接收到HTML文件并转换为DOM树" class="headerlink" title="浏览器接收到HTML文件并转换为DOM树"></a>浏览器接收到HTML文件并转换为DOM树</h2><p>当我们打开一个网页时,浏览器都会去请求对应的HTML文件。虽然平时我们写代码时都会分为JS、HTML、CSS文件,也就是字符串,但是计算机硬件不理解这些字符串,所以网络中传输的内容其实都是<code>0</code>和<code>1</code>这些字节数据。当浏览器接收到这些字节数据后,它会将这些<strong>字节数据转为字符串</strong>,也就是我们写的代码。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6pKzbd"><img src="https://s3.ax1x.com/2021/02/27/6pKzbd.png" alt="6pKzbd.png"></a></p>
+<p>当数据转换为字符串后,浏览器会先将这些字符串通过词法分析转换为<strong>标记(token)</strong>,这一过程在词法分析中叫做<strong>标记化(tokenization)</strong></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6pQ2XF"><img src="https://s3.ax1x.com/2021/02/27/6pQ2XF.png" alt="6pQ2XF.png"></a></p>
+<p>什么是标记?简单来说,标记还是<strong>字符串</strong>,是构成代码的<strong>最小单位</strong></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6plR8P"><img src="https://s3.ax1x.com/2021/02/27/6plR8P.png" alt="6plR8P.png"></a></p>
+<p>当结束标记化后,这些标记会紧接着转换为Node,最后这些Node会根据不同Node之前联系构建一颗DOM树。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6p1eqe"><img src="https://s3.ax1x.com/2021/02/27/6p1eqe.png" alt="6p1eqe.png"></a></p>
+<p>以上为浏览器从网络中接收到HTML文件然后一系列的转换过程。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6p1fiR"><img src="https://s3.ax1x.com/2021/02/27/6p1fiR.png" alt="6p1fiR.png"></a></p>
+<h2 id="将CSS文件转换为CSSDOM树"><a href="#将CSS文件转换为CSSDOM树" class="headerlink" title="将CSS文件转换为CSSDOM树"></a>将CSS文件转换为CSSDOM树</h2><p>转换CSS到CSSOM树的过程和上一小节的过程类似</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6pIt3j"><img src="https://s3.ax1x.com/2021/02/27/6pIt3j.png" alt="6pIt3j.png"></a></p>
+<p>再这个过程中,浏览器会确定下每一个节点的<strong>样式</strong>到底是什么,并且这一过程其实是很<strong>消耗资源</strong>的。因为样式可以自行设置给某个节点,也可以通过继承获得。在这个过程中,浏览器需要递归CSSOM树,然后确定具体的元素到底是什么样式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">  span &#123;</span><br><span class="line">    color: red;</span><br><span class="line">  &#125;</span><br><span class="line">  div &gt; a &gt; span &#123;</span><br><span class="line">    color: red;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于第一种设置样式的方式来说,浏览器只需要找到页面中所有的<code>span</code>标签然后设置颜色,但是对于第二种设置样式的方式来说,浏览器首先需要找到所有的<code>span</code>标签,然后找到<code>span</code>标签上的<code>a</code>标签,最后再去找到<code>div</code>标签,然后给符合这种条件的<code>span</code>标签设置颜色,这样的递归过程就很复杂。所有我们应该尽可能避免去写<strong>过于具体</strong>的CSS选择器,然后对于HTML来说也尽量少的添加无意义标签,保证<strong>层级扁平</strong></p>
+<h2 id="生成渲染树"><a href="#生成渲染树" class="headerlink" title="生成渲染树"></a>生成渲染树</h2><p>当生成DOM树和CSSOM树后,就需要将两棵树组合成渲染树</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6p70bt"><img src="https://s3.ax1x.com/2021/02/27/6p70bt.png" alt="6p70bt.png"></a></p>
+<p>在这一过程中,不是简单的将两者合并就可以了。渲染树只会包括<strong>需要显示的节点</strong>和<strong>这些节点的样式信息</strong>,如果某个节点是<code>display: none</code>,那么就不会在渲染树中显示</p>
+<p>当浏览器生成渲染树后,就会根据渲染树来进行布局(回流)。然后调用GPU绘制,合成图层,显示在屏幕上</p>
+<h2 id="为什么操作DOM慢"><a href="#为什么操作DOM慢" class="headerlink" title="为什么操作DOM慢"></a>为什么操作DOM慢</h2><p>因为DOM是属于渲染引擎中的东西,而JS又是JS引擎中的东西。当我们通过JS操作DOM的时候,其实这个操作涉及到了两个线程之间的通信,那么势必会带来一些性能上的损耗。操作DOM次数一多,也就等同于一直在进行线程之间的通信,并且操作DOM可能还会带来重绘回流的情况,所以也就导致了性能上的问题。</p>
+<h2 id="什么情况阻塞渲染"><a href="#什么情况阻塞渲染" class="headerlink" title="什么情况阻塞渲染"></a>什么情况阻塞渲染</h2><p>首先渲染的前提是<code>生成渲染树</code>,所以<code>HTML</code>和<code>CSS</code>肯定会阻塞渲染。如果想渲染的越快,就应该降低一开始需要渲染的<strong>文件大小</strong>,并且<strong>扁平层级</strong>,<strong>优化选择器</strong>。</p>
+<p>然后当浏览器在解析到<code>script</code>标签时,会暂停构建DOM,完成后才会从暂停的地方重新开始,<strong>因为浏览器不知道后续脚本的内容,如果先去解析了下面的DOM,随后JS操作DOM删除了后面所有DOM,那么浏览器就做了无用功</strong>。所以说,如果想首屏渲染的越快,就不应该在首屏就加载JS文件,<strong>一般情况下建议将<code>script</code>标签放在<code>body</code>标签的底部</strong></p>
+<h2 id="CSS图层"><a href="#CSS图层" class="headerlink" title="CSS图层"></a>CSS图层</h2><p>图层创建的条件:</p>
 <ol>
-<li>Service Worker</li>
-<li>Memory Cache</li>
-<li>Disk Cache</li>
-<li>Push Cache</li>
-<li>网络请求</li>
+<li>拥有具有3D变化的CSS属性(如: transform: translateZ(0))</li>
+<li><code>&lt;canvas&gt;</code>节点</li>
+<li>CSS3动画节点</li>
+<li>拥有CSS加速属性的元素(如: will-change)</li>
+<li>使用加速视频解码的<code>&lt;video&gt;</code>节点</li>
 </ol>
-<h3 id="Service-Worker"><a href="#Service-Worker" class="headerlink" title="Service Worker"></a>Service Worker</h3><p>Service Worker的缓存与浏览器其他内建的缓存机制不同,它可以让我们<strong>自由控制</strong>哪些文件、如何匹配缓存、如何读取缓存、并且<strong>缓存是持续性的</strong></p>
-<p>当Service Worker没有命中缓存的时候,我们需要去调用<code>fetch</code>函数获取数据。也就是说,如果我们没有在Service Worker命中缓存的话,会根据缓存查找优先级去查找数据。<strong>但不管我们是从Memory Cache中还是网络请求中获取数据,浏览器都会显示从Service Worker中获取的内容</strong></p>
-<h3 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h3><p>Memory Cache也就是内存中的缓存,读取内存中的数据肯定比磁盘快。<strong>内存缓存虽然读取高效,但是缓存持续性短,会随着进程的释放而释放。</strong>一旦我们关闭Tab页面,内存中的缓存也被释放了。</p>
-<p>当我们访问过页面后,再次刷新页面,会发现很多数据都来自于内存缓存</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6SrfU0"><img src="https://s3.ax1x.com/2021/02/27/6SrfU0.png" alt="6SrfU0.png"></a></p>
-<h3 id="Disk-Cache"><a href="#Disk-Cache" class="headerlink" title="Disk Cache"></a>Disk Cache</h3><p>Disk Cache也就是存储在硬盘中的缓存,读取速度慢点,相比于Memory Cache<strong>胜在容量和存储时效性上。</strong></p>
-<p>在所有浏览器缓存中,Disk Cache覆盖面基本是最大的。他会根据HTTP Header中的字段判断哪些资源需要缓存,哪些资源可以不请求直接使用,哪些资源已经过期需要重新请求。<strong>并且即使在跨站点的情况下,相同地址的资源一旦被硬盘缓存下来,就不会再次去请求数据。</strong></p>
-<h3 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h3><p>当以上三种缓存都没有命中时,它才会被使用。<strong>并且缓存时间也很短暂,只在会话(session)中存在,一旦会话结束就被释放。</strong></p>
-<h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><p>如果所有缓存都没有命中的话,那么只能发起请求来获取资源了。</p>
-<h2 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h2><p>通常浏览器缓存策略分为: <strong>强缓存</strong>和<strong>协商缓存</strong>并且缓存策略都是通过设置HTTP Header来实现的。</p>
-<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><p>强缓存可以通过设置两种HTTP Header实现:<code>Expires</code>和<code>Cache-Control</code>。强缓存表示在缓存期间不需要请求,直接从本地缓存中获取数据,请求资源的状态码为<code>200 ok(from memory cache)</code></p>
-<h4 id="强缓存的header参数"><a href="#强缓存的header参数" class="headerlink" title="强缓存的header参数"></a>强缓存的header参数</h4><ol>
-<li>expires: 它的值为一个绝对时间的GMT格式的时间字符串<code>Sat, 27 Feb 2021 03:21:51 GMT</code>,如果发送的时间再expires之前,那么本地缓存始终有效,否则就会发送请求到服务器来获取资源。</li>
-<li>cache-control: <code>Cache-control: max-age=30</code>,它的<strong>优先级要高于<code>Expires</code>**。该属性值表示资源会在30秒后过期,需要再次请求。<code>cache-control</code>**可以再请求头或响应头中设置</strong>,并且可以组合使用多种指令</li>
+<h2 id="重绘-Repaint-和回流-Reflow"><a href="#重绘-Repaint-和回流-Reflow" class="headerlink" title="重绘(Repaint)和回流(Reflow)"></a>重绘(Repaint)和回流(Reflow)</h2><ol>
+<li>重绘<ul>
+<li>是一个元素外观的改变所触发的浏览器行为,例如改变背景色、outline等属性</li>
+<li>重绘是以图层为单位,如果图层中的某个元素需要重绘,那么整个图层都会重绘</li>
+</ul>
+</li>
+<li>重排(又称回流)<ul>
+<li>当页面结构或元素大小发生变化时,例如改变宽高、display、overflow等</li>
+</ul>
+</li>
 </ol>
-<table>
-<thead>
-<tr>
-<th>指令</th>
-<th align="center">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>public</td>
-<td align="center">表示响应可以被客户端和代理服务器缓存</td>
-</tr>
-<tr>
-<td>private</td>
-<td align="center">表示响应只能被客户端缓存</td>
-</tr>
-<tr>
-<td>max-age=30</td>
-<td align="center">缓存30秒后过期,需要重新请求</td>
-</tr>
-<tr>
-<td>s-max-age=30</td>
-<td align="center">覆盖max-age,作用一样,只在代理服务器中生效</td>
-</tr>
-<tr>
-<td>no-store</td>
-<td align="center">不缓存任何响应</td>
-</tr>
-<tr>
-<td>no-cache</td>
-<td align="center">资源被缓存,但是立即失效,下次会发起请求验证资源是否过期</td>
-</tr>
-<tr>
-<td>max-stale=30</td>
-<td align="center">30秒内,即使缓存过期,也是用该缓存</td>
-</tr>
-<tr>
-<td>min-fresh=30</td>
-<td align="center">希望在30秒内获取最新的响应</td>
-</tr>
-</tbody></table>
-<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>如果缓存过期了,就需要发起请求验证资源是否更新。协商缓存可以通过设置两种HTTP Header实现:<code>Last-Modified</code>和<code>Etag</code>。</p>
-<p>向服务器发送请求,服务器会根据请求头的资源判断是否命中协商缓存。如果命中,则返回304状态码通知浏览器从缓存中读取数据</p>
-<h4 id="Last-Modified和If-Modified-Since"><a href="#Last-Modified和If-Modified-Since" class="headerlink" title="Last-Modified和If-Modified-Since"></a>Last-Modified和If-Modified-Since</h4><p><code>Last-Modified</code>和<code>If-Modified-Since</code>两者的值都是GMT格式的时间字符串</p>
-<ol>
-<li>浏览器第一次跟服务器请求一个资源,服务器在返回这个资源的同时,在<code>response的header</code>加上<code>Last-Modified</code>的header,表示这个资源在服务器上的<strong>最后修改时间</strong></li>
-<li>浏览器再次跟服务器请求这个资源时,在<code>request的header</code>上加上<code>If-Modified-Since</code>的header,这个header的值就是上一次请求时返回的<code>Last-Modified</code>的值</li>
-<li>服务器再次收到请求资源时,根据浏览器传过来的<code>If-Modified-Since</code>和资源在服务器上的最后修改时间判断资源是否有变化,如果没有则返回304状态码,但不会返回资源内容;如果有变化,就正常返回资源内容。当服务器返回304的响应时,response header中不再添加<code>Last-Modified</code>的header,因为资源没有变化,那么<code>Last-Modified</code>也不再改变。</li>
-<li>浏览器接收到304的响应后,就会从缓存中加载资源</li>
-<li>如果协商缓存没有命中,浏览器直接从服务器加载资源时,<code>Last-Modified</code>的header在重新加载的时候会被更新。下次请求时,<code>If-Modified-Since</code>会使用上次返回的<code>Last-Modified</code>的值</li>
+<p><strong>重绘不一定需要重排,但是重排大多数情况下会导致重绘</strong></p>
+<ol start="3">
+<li><p>常见触发重排的操作</p>
+<ul>
+<li>增加、删除、修改DOM节点时,会导致重绘和重排</li>
+<li>当移动DOM的位置时</li>
+<li>当修改CSS样式时</li>
+<li><strong>当Resize窗口的时候(移动端没有这个问题)</strong></li>
+<li><strong>当修改页面的默认字体时</strong></li>
+<li><strong>获取某些属性时(width,height…)</strong></li>
+</ul>
+</li>
+<li><p>减少重绘和重排的方案</p>
+<ul>
+<li><strong>元素位置移动变化时尽量使用CSS3的transform来替代top、left等操作</strong></li>
+<li>使用<code>visibility</code>替换<code>display: none</code>,因为前者只会引起重绘,后者会引发回流(改变了布局)</li>
+<li>CSS选择符<code>从右往左</code>匹配查找,避免节点层级过多</li>
+<li>不要使用<code>table</code>布局,一个小改动可能会造成整个<code>table</code>的重新布局</li>
+<li>动画实现速度的选择,动画速度越快,重排次数就越多,也可以选择使用<code>window.requestAnimationFrame(callback)</code><strong>若想在浏览器下一次重绘前继续更新下一帧动画,那么回调函数自身需要再次调用window.requestAnimationFrame()</strong></li>
+<li>将频繁重绘或重排的节点设置为图层,图层能够阻止该节点的渲染行为影响其他节点</li>
+</ul>
+</li>
 </ol>
-<h4 id="Etag和If-None-Match"><a href="#Etag和If-None-Match" class="headerlink" title="Etag和If-None-Match"></a>Etag和If-None-Match</h4><p>Etag类似于文件指纹,If-None-Match会将当前Etag发送给服务器,询问该资源Etag是否变动,有变动的话就将新的资源发送回来。并且<code>Etag</code>优先级比<code>Last-Modified</code>高</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
-<li>利用<code>Etag</code>能够<strong>更加准确的控制缓存</strong>,因为<code>Etag</code>是服务器自动生成或者开发者生成的对应资源在服务器的唯一标识符</li>
-<li><code>Last-Modified</code>与<code>Etag</code>是可以一起使用的,服务器会优先验证<code>Etag</code>,一致的情况下,才会继续对比<code>Last-Modified</code>,最后再决定是否返回304。</li>
-</ol>
-<h3 id="实际场景应用缓存策略"><a href="#实际场景应用缓存策略" class="headerlink" title="实际场景应用缓存策略"></a>实际场景应用缓存策略</h3><h4 id="频繁变动的资源"><a href="#频繁变动的资源" class="headerlink" title="频繁变动的资源"></a>频繁变动的资源</h4><p>对于频繁变动的资源,首先需要使用<code>cache-control: no-cache</code>使浏览器每次都请求服务器,然后配合<code>Etag</code>或者<code>Last-Modified</code>来验证资源是否有效。这样做法虽然不能节省请求次数,但是能显著减少响应数据大小。</p>
-<h4 id="代码文件"><a href="#代码文件" class="headerlink" title="代码文件"></a>代码文件</h4><p>这里特指除了HTML外的代码文件,因为HTML文件一班不缓存或者缓存时间短。</p>
-<p>一般来说,现在都会使用工具来打包代码,那么我们就可以对文件名进行哈希处理,只有当代码修改后才会生成新的文件名。我们可以给代码文件设置缓存有效期一年<code>cache-control: max-age=3153600</code>,这样只有当HTML文件中引入的文件名发生变化才会去下载最新的代码文件,否则就一直使用缓存。</p>
 
                 
             </div>
@@ -577,7 +558,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/02/26/liu-lan-qi-huan-cun-ji-zhi/">https://784801819.github.io/2021/02/26/liu-lan-qi-huan-cun-ji-zhi/</a>
+                    <a href="https://784801819.github.io/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">https://784801819.github.io/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -615,8 +596,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">
-                                    <span class="chip bg-color">浏览器</span>
+                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                                    <span class="chip bg-color">性能优化</span>
                                 </a>
                             
                         </div>
@@ -1054,9 +1035,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
                     <div class="card-image">
@@ -1074,9 +1056,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1085,6 +1067,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1103,13 +1086,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/23/liu-lan-qi-ji-chu-zhi-shi-dian/">
+                <a href="/2021/02/26/liu-lan-qi-huan-cun-ji-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="浏览器基础知识点">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="浏览器缓存机制">
                         
-                        <span class="card-title">浏览器基础知识点</span>
+                        <span class="card-title">浏览器缓存机制</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1120,7 +1103,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-26
                             </span>
                         <span class="publish-author">
                             
