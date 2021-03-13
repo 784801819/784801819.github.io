@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="JS基础知识点整理(一), W.BOWEN&#39;s blog">
+    <meta name="keywords" content="性能优化琐碎, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>JS基础知识点整理(一) | W.BOWEN&#39;s blog</title>
+    <title>性能优化琐碎 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">JS基础知识点整理(一)</h1>
+                    <h1 class="description center-align post-title">性能优化琐碎</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JavaScript/">
-                                <span class="chip bg-color">JavaScript</span>
+                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                                <span class="chip bg-color">性能优化</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-03
+                    2021-03-02
                 </div>
                 
 
@@ -468,98 +468,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="基本数据类型-amp-引用数据类型"><a href="#基本数据类型-amp-引用数据类型" class="headerlink" title="基本数据类型&amp;引用数据类型"></a>基本数据类型&amp;引用数据类型</h2><blockquote>
-<p>基本数据类型有哪几种? null是对象吗?</p>
-</blockquote>
+                <h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><h3 id="计算图片大小"><a href="#计算图片大小" class="headerlink" title="计算图片大小"></a>计算图片大小</h3><p>对于一张100 * 100像素的图片来说,图片上有10000个像素点。</p>
+<p>但实习项目中,一张图片可能不需要使用这么多颜色去显示,我们可以通过减少每个像素的调色板来相应缩小图片的大小。</p>
+<p>图片优化的两个思路:</p>
 <ol>
-<li><p>在JS中,存在着6种基本数据类型,分别是:</p>
-<ul>
-<li><code>Boolean</code></li>
-<li><code>Null</code></li>
-<li><code>undefined</code></li>
-<li><code>Number</code></li>
-<li><code>String</code></li>
-<li><code>Symbol</code></li>
-</ul>
-</li>
-<li><p>基本数据类型的特征:</p>
-<ul>
-<li>存储的是该对象的实际数据</li>
-<li>基本数据类型数据赋值给某一个变量之后值本身就不会再发生改变</li>
-</ul>
-</li>
-<li><p>引用数据类型:</p>
-<ul>
-<li><code>Object</code></li>
-<li><code>Array</code></li>
-<li><code>Function</code></li>
-</ul>
-</li>
-<li><p>引用数据类型的特征: </p>
-<ul>
-<li>存储的是该对象在栈中的引用(地址),真实的数据存放在堆内存中</li>
-<li>引用数据类型的值可以通过其赋值的变量修改</li>
-</ul>
-</li>
-<li><p>对于null来说,说它是个对象类型,其实是错误的。虽然<code>typeof null</code>会输出<code>object</code>,但是只是JS存在的一个悠久BUG。再JS最初版本中使用的是32位系统,为了性能考虑使用拉低存储变量的类型信息,<code>000</code>开头代表是对象,然而<code>null</code>表示为全零,所有误判为<code>object</code></p>
-</li>
+<li>减少像素点</li>
+<li>减少每个像素点能够显示的颜色</li>
 </ol>
-<h2 id="对象-Object-类型"><a href="#对象-Object-类型" class="headerlink" title="对象(Object)类型"></a>对象(Object)类型</h2><blockquote>
-<p>对象类型和原始类型的不同之处? 函数参数是对象会发生什么问题?</p>
-</blockquote>
-<ol>
-<li>在JS中,除了原始类型其他的都是对象类型。对象类型和原始类型不同的是,原始类型存储的是值,对象了些存储的是地址(指针)。当创建了一个对象类型的时候,计算机会在内存中开辟一块空间存放值,但我们需要找到这个空间,这个空间会拥有一个地址(指针)<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br></pre></td></tr></table></figure>
-对于常量a来说,假设内存地址(指针)为<code>#001</code>,那么在地址<code>#001</code>的位置存放了值<code>[]</code>,常量<code>a</code>存放了地址(指针)<code>#001</code>,如下<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = []</span><br><span class="line"><span class="keyword">const</span> b = a</span><br><span class="line">b.push(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-将变量赋值给另外一个变量时,复制的是原本变量的地址(指针),也就是说当前变量<code>b</code>存放的地址(指针)也是<code>#001</code>,当进行数据修改的时候,就会修改存放在地址(指针)<code>#001</code>上的值,导致两个变量的值都发生了改变。</li>
-<li>函数参数是对象的情况:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">Person</span>) </span>&#123;</span><br><span class="line">  person.age = <span class="number">23</span></span><br><span class="line">  person = &#123;</span><br><span class="line">    name: <span class="string">&#x27;wbw&#x27;</span>,</span><br><span class="line">    age: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> person</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = &#123;</span><br><span class="line">  name: <span class="string">&#x27;lxd&#x27;</span>,</span><br><span class="line">  age: <span class="number">22</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p2 = test(p1)</span><br><span class="line"><span class="built_in">console</span>.log(p1) <span class="comment">// -&gt; &#123;name: &#x27;lxd&#x27;, age: 23&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(p2) <span class="comment">// -&gt; &#123;name: &#x27;wbw&#x27;, age: 18&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="typeof-vs-instanceof"><a href="#typeof-vs-instanceof" class="headerlink" title="typeof vs instanceof"></a>typeof vs instanceof</h2></li>
+<h3 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h3><ol>
+<li>不用图片。很多时候会使用到很多修饰类图片,其实这类修饰图片完全可以用<strong>CSS代替</strong>。</li>
+<li>对于移动端来说,屏幕宽度就那么多,完全没必要去加载原图。一般图片都用<strong>CDN加载</strong>,可以计算出适配屏幕额宽度,然后去请求相应裁剪好的图片。</li>
+<li>小图可以使用<strong>base64格式</strong></li>
+<li>将多个图标文件整合到一张图片中(<strong>精灵图</strong>)</li>
 </ol>
-<blockquote>
-<p>typeof是否能正确判断类型? instanceof能正确判断对象的原理是什么?</p>
-</blockquote>
-<ol>
-<li><code>typeof</code>对于基本数据类型来说,除了<code>null</code>都可以显示正确的类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// &#x27;number&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="string">&#x27;1&#x27;</span> <span class="comment">// &#x27;string&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">// &#x27;undefined&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">true</span> <span class="comment">// &#x27;boolean&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">Symbol</span>() <span class="comment">// &#x27;symbol&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><code>typeof</code>对于引用数据类型来说,除了函数都会显示<code>object</code>,所有<code>typeof</code>不能准确判断变量到底是什么类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> [] <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> &#123;&#125; <span class="comment">// &#x27;object&#x27;</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="built_in">console</span>.log <span class="comment">// &#x27;function&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>如果像判断一个对象的正确类型,这时候可以考虑使用<code>instanceof</code>,因为内部机制是通过<code>原型链</code>来判断的<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person()</span><br><span class="line">p1 <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">str <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line">str1 <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-注意: 对于基本数据类型来说,直接通过<code>instanceof</code>来判断类型是不行的</li>
-</ol>
-<h2 id="类型转换-未完！"><a href="#类型转换-未完！" class="headerlink" title="类型转换(未完！)"></a>类型转换(未完！)</h2><ol>
-<li><p>首先,在JS中类型转换只有三种情况,分别是:</p>
-<ul>
-<li>转换为布尔值(Boolean)</li>
-<li>转换为数字(Number)</li>
-<li>转换为字符串(String)</li>
-</ul>
-</li>
-<li><p>转Boolean</p>
-<ul>
-<li>在条件判断时,除了<code>undefined</code>, <code>null</code>, <code>false</code>, <code>NaN</code>, <code>&#39;&#39;,</code> <code>0</code>, <code>-0</code>,其他所有值都能转为<code>true</code>,包括所有对象</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6w9F1A"><img src="https://s3.ax1x.com/2021/03/13/6w9F1A.png" alt="6w9F1A.png"></a></p>
-</li>
-</ol>
-<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><blockquote>
-<p>如何正确判断this? 箭头函数的this是什么?</p>
-</blockquote>
-<ol>
-<li>this是一个关键字、变量</li>
-<li>this的指向问题<ul>
-<li>函数this不是函数定义时决定的</li>
-<li>函数this指向看谁如何调用当前的函数</li>
-</ul>
-</li>
-<li>this指向分类<ul>
-<li>函数自调用时<code>this</code>一定指向<code>window</code></li>
-<li>在<code>事件当中</code>,回调函数中的this指向事件对象(比如点击事件)</li>
-<li><code>对象.方法()</code>的this指向对象本身</li>
-<li><code>构造函数</code>的this指向当前构造函数的实例对象</li>
-<li><code>箭头函数</code>中没有this,一般它的this指向其外部作用域中的this,如果外部没有函数,this指向window(注意: <strong>箭头函数的this一旦被绑定,就不会再被任何方式改变</strong>)</li>
-<li><code>fun.call/apply(obj)</code>,调用函数,指定函数中的this为第一参数的值,如果第一个参数为空,那么默认为window</li>
-<li><code>ajax回调/定时器回调</code>中的this永远指向window</li>
-</ul>
-</li>
-<li>注意点: 不管给函数<code>bind</code>几次,<code>fn</code>中的<code>this</code>永远由<code>第一次bind</code>决定,不会再更改<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>) <span class="comment">// ==&gt; 输出的是window而不是a</span></span><br><span class="line">&#125;</span><br><span class="line">fn.bind().bind(a) </span><br></pre></td></tr></table></figure></li>
-</ol>
+<h2 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h2><p>DNS解析也需要时间,可以通过预解析的方式来预先获取域名所对应的IP。</p>
+<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>在函数需要频繁触发时,在规定时间内,只让最后一次生效,前面的不生效。适合多次事件一次响应的情况。<strong>一般适用于输入框实时搜索联想(keyup/input)</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">callback, delay=<span class="number">500</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 记录是否有定时器</span></span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果上次事件没有处理完就取消</span></span><br><span class="line">    <span class="keyword">if</span>(timer) <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">    <span class="comment">// 在事件发生指定时间后才调用指定</span></span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p>在函数频繁触发时,函数执行一次后,只有在大于设定的执行周期后才会继续执行下一次操作。适合多次事件按时间做平均分配触发。<strong>一般用于窗口调整(resize)、页面滚动(scroll)或按钮点击(click)等</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">callback, interval</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> last = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 记录当前时间</span></span><br><span class="line">    <span class="keyword">let</span> now  = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span>(now - last &gt; interval) &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">      <span class="comment">// 记录此次调用的时间</span></span><br><span class="line">      last = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>在开发中,</p>
 
                 
             </div>
@@ -586,7 +513,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/">https://784801819.github.io/2021/02/03/js-ji-chu-zhi-shi-yi/</a>
+                    <a href="https://784801819.github.io/2021/03/02/xing-neng-you-hua/">https://784801819.github.io/2021/03/02/xing-neng-you-hua/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -624,8 +551,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JavaScript/">
-                                    <span class="chip bg-color">JavaScript</span>
+                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                                    <span class="chip bg-color">性能优化</span>
                                 </a>
                             
                         </div>
@@ -1063,62 +990,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/02/08/js-ji-chu-zhi-shi-er/">
+                <a href="/2021/03/02/xing-neng-you-hua/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JS基础知识点整理(二)">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="性能优化琐碎">
                         
-                        <span class="card-title">JS基础知识点整理(二)</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-08
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            W.BOWEN
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/02/03/js-ji-chu-zhi-shi-yi/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="JS基础知识点整理(一)">
-                        
-                        <span class="card-title">JS基础知识点整理(一)</span>
+                        <span class="card-title">性能优化琐碎</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1129,7 +1012,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-02
                             </span>
                         <span class="publish-author">
                             
@@ -1143,8 +1026,53 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
+                    <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">性能优化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="浏览器渲染原理">
+                        
+                        <span class="card-title">浏览器渲染原理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            W.BOWEN
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">性能优化</span>
                     </a>
                     
                 </div>

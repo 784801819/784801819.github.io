@@ -528,9 +528,20 @@
 <li>CSS选择符<code>从右往左</code>匹配查找,避免节点层级过多</li>
 <li>不要使用<code>table</code>布局,一个小改动可能会造成整个<code>table</code>的重新布局</li>
 <li>动画实现速度的选择,动画速度越快,重排次数就越多,也可以选择使用<code>window.requestAnimationFrame(callback)</code><strong>若想在浏览器下一次重绘前继续更新下一帧动画,那么回调函数自身需要再次调用window.requestAnimationFrame()</strong></li>
-<li>将频繁重绘或重排的节点设置为图层,图层能够阻止该节点的渲染行为影响其他节点</li>
+<li>将频繁重绘或重排的节点设置为图层,图层能够阻止该节点的渲染行为影响其他节点。</li>
 </ul>
 </li>
+</ol>
+<blockquote>
+<p>在不考虑缓存和优化网络协议的前提下,考虑可以通过哪些方式来最快的渲染页面?</p>
+</blockquote>
+<ol>
+<li>尽可能避免去写<strong>过于具体</strong>的CSS选择器,然后对于HTML来说也尽量少的添加无意义标签,保证<strong>层级扁平</strong></li>
+<li>尽可能将<code>script</code>标签放到body底部,将<code>link</code>标签写在顶部</li>
+<li>使用图片懒加载</li>
+<li>避免滥用全局变量,减少作用域的查找。不要滥用闭包,避免使用不当造成内存泄漏的问题</li>
+<li>当需要设置的样式很多时设置className,而不是直接操作style</li>
+<li>尽可能少的用js去操作DOM,可能会导致重排或重绘的情况</li>
 </ol>
 
                 
@@ -1035,18 +1046,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
+                <a href="/2021/03/02/xing-neng-you-hua/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="浏览器渲染原理">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="性能优化琐碎">
                         
-                        <span class="card-title">浏览器渲染原理</span>
+                        <span class="card-title">性能优化琐碎</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1056,9 +1066,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-02
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1067,7 +1077,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1341,7 +1350,7 @@
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://gitee.com/wang-bowen" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
