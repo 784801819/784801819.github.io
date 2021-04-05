@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="性能优化琐碎, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="Set和Map, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>性能优化琐碎 | W.BOWEN&#39;s blog</title>
+    <title>Set和Map | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">性能优化琐碎</h1>
+                    <h1 class="description center-align post-title">Set和Map</h1>
                 </div>
             </div>
         </div>
@@ -429,13 +429,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">性能优化</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -447,7 +443,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-02
+                    2021-03-22
                 </div>
                 
 
@@ -468,25 +464,87 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><h3 id="计算图片大小"><a href="#计算图片大小" class="headerlink" title="计算图片大小"></a>计算图片大小</h3><p>对于一张100 * 100像素的图片来说,图片上有10000个像素点。</p>
-<p>但实习项目中,一张图片可能不需要使用这么多颜色去显示,我们可以通过减少每个像素的调色板来相应缩小图片的大小。</p>
-<p>图片优化的两个思路:</p>
+                <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6提供新的数据结构Set。它类似于数组,但是成员的值都是唯一的,没有重复的值。</p>
+<p><code>Set</code>本身是一个构造函数,用来生成Set数据结构。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">2</span>].forEach(<span class="function"><span class="params">x</span> =&gt;</span> s.add(x));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// 2, 3, 5, 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码通过<code>add()</code>方法向Set结构加入成员,结果表明<strong>Set结构不会添加重复的值</strong>。</p>
+<p><code>Set函数</code>可以接收一个数组(或者具有iterable接口的其他数据结构)作为参数,用来初始化。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一</span></span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br><span class="line"><span class="built_in">console</span>.log([...set]); <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 二</span></span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(set.size) <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+<p><strong>Set可以用于去除数组重复成员的方法,也可以用于去除字符串里的重复字符。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 去除数组重复成员</span></span><br><span class="line">[...new <span class="built_in">Set</span>(array)]</span><br><span class="line"><span class="comment">// 去除字符串重复字符</span></span><br><span class="line">[...new <span class="built_in">Set</span>(<span class="string">&quot;ababbc&quot;</span>).join(<span class="string">&quot;&quot;</span>)]; <span class="comment">// &quot;abc&quot;</span></span><br></pre></td></tr></table></figure>
+<p>向Set加入值的时候,不会发生类型转换,所以<code>5</code>和<code>&quot;5&quot;</code>是两个不同的值。Set内部判断两个值是否不同,类似于全等运算符(<code>===</code>),主要的区别是向Set加入值时认为<code>NaN</code>等于自身,而全等运算符认为<code>NaN</code>不等于自身</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"><span class="keyword">const</span> a = <span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">NaN</span>;</span><br><span class="line">set.add(a).add(b);</span><br><span class="line"><span class="built_in">console</span>.log(set); <span class="comment">// Set(1) &#123;NaN&#125;</span></span><br></pre></td></tr></table></figure>
+<p>代码向Set添加了两次<code>NaN</code>,但是只会加入一个,这表明,在Set内部两个<code>NaN</code>是相等的。另外,<strong>两个对象总不相等(因为引用地址不同)。</strong></p>
+<h3 id="Set实例的属性和方法"><a href="#Set实例的属性和方法" class="headerlink" title="Set实例的属性和方法"></a>Set实例的属性和方法</h3><ol>
+<li>Set结构的实例有以下属性。</li>
+</ol>
+<ul>
+<li><code>Set.prototype.constructor</code>: 构造函数,默认就是<code>Set</code>函数。</li>
+<li><code>Set.prototype.size</code>: 返回Set实例的成员个数。</li>
+</ul>
+<ol start="2">
+<li>Set实例的方法分两大类: <code>操作方法</code>(用于操作数据)和<code>遍历方法</code>(用于遍历成员)</li>
+</ol>
+<ul>
+<li><code>Set.prototype.add(value)</code>: 添加某个值,返回Set结构本身。(可串联多个add())</li>
+<li><code>Set.prototype.delete(value)</code>: 删除某个值,返回布尔值,表示删除是否成功。</li>
+<li><code>Set.prototype.has(value)</code>: 查询该值是否为<code>Set</code>的成员。返回一个布尔值。</li>
+<li><code>Set.prototype.clear()</code>: 清除所有成员,无返回值。</li>
+</ul>
+<p><code>Object</code>结构和<code>Set</code>结构的在判断是否包括在一个键上写法不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象写法</span></span><br><span class="line"><span class="keyword">const</span> properties = &#123;</span><br><span class="line">  width: <span class="number">1</span>,</span><br><span class="line">  height: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">if</span>(properties[someName]) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set写法</span></span><br><span class="line"><span class="keyword">const</span> properties = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">properties.add(<span class="string">&quot;width&quot;</span>).add(<span class="string">&quot;height&quot;</span>);</span><br><span class="line"><span class="keyword">if</span>(properties.has(someName)) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Array.from()</code>方法可以将Set结构转为数组,这就提供了另一种数组去重的方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(array));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">unique([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]) <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><ol>
+<li>Set结构的实例有四个遍历方法,可以用于遍历成员。</li>
+</ol>
+<ul>
+<li><code>Set.prototype.keys()</code>: 返回<code>键名</code>的遍历器。</li>
+<li><code>Set.prototype.values()</code>: 返回<code>键值</code>的遍历器。</li>
+<li><code>Set.prototype.entries()</code>: 返回<code>键值对</code>的遍历器。</li>
+<li><code>Set.prototype.forEach()</code>: 使用回调函数遍历每个成员。</li>
+</ul>
+<p><strong><code>Set</code>的遍历顺序就是插入顺序。</strong></p>
+<ol start="2">
+<li><code>keys()</code>、<code>values()</code>、<code>entries()</code></li>
+</ol>
+<p><code>keys</code>方法、<code>values</code>方法、<code>entries</code>方法返回的都是遍历器对象。由于Set没有键名,只有键值,所以<code>keys</code>方法和<code>values</code>方法的行为完全一致。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> set.keys()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// red  green  blue</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> set.values()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i) <span class="comment">// red  green  blue</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> set.entries()) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i) <span class="comment">// [&quot;red&quot;, &quot;red&quot;]  [&quot;green&quot;, &quot;green&quot;]  [&quot;blue&quot;, &quot;blue&quot;] </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中,<code>entries()方法</code>返回的遍历器,同时包括键名和键值,所以每次输出一个数组,它的两个成员完全相等。</p>
+<p>Set结构的实例默认可遍历,它的默认遍历器生成函数就它的<code>values</code>方法。这就意味着,可以省略<code>values</code>方法,直接用<code>for...of</code>循环遍历Set。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span>]);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> set) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// red green blue</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>forEach()</code></li>
+</ol>
+<ul>
+<li>Set结构的实例与数组一样,也拥有<code>forEach</code>方法,用于对每个成员执行某种操作,没有返回值。</li>
+<li>forEach方法的参数就是一个处理函数,该函数的参数与数组的<code>forEach</code>一致,依次为<code>键值</code>、<code>键名</code>、<code>集合本身</code>。因为Set结构的键名就是键值,因此第一个参数和第二个参数的值永远是一样的。</li>
+</ul>
+<ol start="4">
+<li>遍历的应用</li>
+</ol>
+<ul>
+<li>扩展运算符(<code>...</code>)内部使用<code>for...of</code>循环,所以也可以用于Set结构。</li>
+<li>扩展运算符和Set结构结合,就可以去除数组的重复成员。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> unique = [...new <span class="built_in">Set</span>(arr)];</span><br><span class="line"><span class="comment">// [3, 5, 2, 4]</span></span><br></pre></td></tr></table></figure></li>
+<li>数组的<code>map</code>方法和<code>filter</code>方法也可以间接用于Set。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">set = <span class="keyword">new</span> <span class="built_in">Set</span>([...set].map(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;2, 4, 6&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line">set = <span class="keyword">new</span> <span class="built_in">Set</span>([...set].filter(<span class="function"><span class="params">item</span> =&gt;</span> (item % <span class="number">2</span>) == <span class="number">0</span>));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;2, 4&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>因此使用Set可以很容易的实现并集(Union)、交集(Intersect)和差集(Difference)。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="keyword">const</span> b = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并集</span></span><br><span class="line"><span class="keyword">const</span> union = <span class="keyword">new</span> <span class="built_in">Set</span>([...a, ...b]);</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;1, 2, 3, 4&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 交集</span></span><br><span class="line"><span class="keyword">const</span> intersect = <span class="keyword">new</span> <span class="built_in">Set</span>([...a].filter(<span class="function"><span class="params">x</span> =&gt;</span> b.has(x)));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;2, 3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 差集</span></span><br><span class="line"><span class="keyword">const</span> difference = <span class="keyword">new</span> <span class="built_in">Set</span>([...a].filter(<span class="function"><span class="params">x</span> =&gt;</span> !b.has(x)));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;1&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>如果想在遍历操作中,同步改变原来的Set结构有两种方法:一种是利用原Set结构映射出一个新的结构,然后赋值给原来的Set结构;另一种是利用<code>Array.from()</code>方法</li>
+<li><code>Array.from(array, mapFn, thisArg)</code>方法从一个类似数组或可迭代对象创建一个新的、浅拷贝的数组实例。<ol>
+<li>第一个参数:想要转换成数组的伪数组对象或可迭代对象</li>
+<li>第二个参数:可选,如果指定了该参数,新数组中的每个元素都会执行该回调函数。</li>
+<li>第三个参数:可选,执行回调函数mapFn时的this对象。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">set = <span class="keyword">new</span> <span class="built_in">Set</span>([...set].map(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;2, 4, 6&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">set = <span class="keyword">new</span> <span class="built_in">Set</span>(<span class="built_in">Array</span>.from(set, <span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>));</span><br><span class="line"><span class="comment">// 返回Set结构: &#123;2, 4, 6&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h2></li>
+</ol>
+</li>
+</ul>
+<h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p>WeakSet结构与Set类似,也是不重复的值的集合。但是,它与Set有两个区别</p>
 <ol>
-<li>减少像素点</li>
-<li>减少每个像素点能够显示的颜色</li>
+<li>WeakSet的成员只能是对象,而不能是其他类型的值</li>
 </ol>
-<h3 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h3><ol>
-<li>不用图片。很多时候会使用到很多修饰类图片,其实这类修饰图片完全可以用<strong>CSS代替</strong>。</li>
-<li>对于移动端来说,屏幕宽度就那么多,完全没必要去加载原图。一般图片都用<strong>CDN加载</strong>,可以计算出适配屏幕额宽度,然后去请求相应裁剪好的图片。</li>
-<li>小图可以使用<strong>base64格式</strong></li>
-<li>将多个图标文件整合到一张图片中(<strong>精灵图</strong>)</li>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/cQje3T"><img src="https://z3.ax1x.com/2021/04/05/cQje3T.png" alt="cQje3T.png"></a></p>
+<ol start="2">
+<li>WeakSet中的对象都是弱引用,即垃圾回收机制不考虑WeakSet对该对象的引用,也就是说,<strong>如果其他对象都不再引用该对象,那么垃圾回收机制会自动回收该对象所占用的内存,不考虑该对象是否还存在与WeakSet中</strong></li>
 </ol>
-<h2 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h2><p>DNS解析也需要时间,可以通过预解析的方式来预先获取域名所对应的IP。</p>
-<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>在函数需要频繁触发时,在规定时间内,只让最后一次生效,前面的不生效。适合多次事件一次响应的情况。<strong>一般适用于输入框实时搜索联想(keyup/input)</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">callback, delay=<span class="number">500</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 记录是否有定时器</span></span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果上次事件没有处理完就取消</span></span><br><span class="line">    <span class="keyword">if</span>(timer) <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">    <span class="comment">// 在事件发生指定时间后才调用指定</span></span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p>在函数频繁触发时,函数执行一次后,只有在大于设定的执行周期后才会继续执行下一次操作。适合多次事件按时间做平均分配触发。<strong>一般用于窗口调整(resize)、页面滚动(scroll)或按钮点击(click)等</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">callback, interval</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> last = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 记录当前时间</span></span><br><span class="line">    <span class="keyword">let</span> now  = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span>(now - last &gt; interval) &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">      <span class="comment">// 记录此次调用的时间</span></span><br><span class="line">      last = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>未完~</p>
 
                 
             </div>
@@ -513,7 +571,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/03/02/xing-neng-you-hua/">https://784801819.github.io/2021/03/02/xing-neng-you-hua/</a>
+                    <a href="https://784801819.github.io/2021/03/22/set-he-map/">https://784801819.github.io/2021/03/22/set-he-map/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,11 +608,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">性能优化</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -990,9 +1044,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/22/set-he-map/">
                     <div class="card-image">
@@ -1010,9 +1065,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1021,6 +1076,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -1031,13 +1087,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
+                <a href="/2021/03/02/xing-neng-you-hua/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="浏览器渲染原理">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="性能优化琐碎">
                         
-                        <span class="card-title">浏览器渲染原理</span>
+                        <span class="card-title">性能优化琐碎</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1048,7 +1104,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-02
                             </span>
                         <span class="publish-author">
                             
