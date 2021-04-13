@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="性能优化琐碎, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="ES6数组新语法, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>性能优化琐碎 | W.BOWEN&#39;s blog</title>
+    <title>ES6数组新语法 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">性能优化琐碎</h1>
+                    <h1 class="description center-align post-title">ES6数组新语法</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">性能优化</span>
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-02
+                    2021-04-12
                 </div>
                 
 
@@ -468,26 +468,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><h3 id="计算图片大小"><a href="#计算图片大小" class="headerlink" title="计算图片大小"></a>计算图片大小</h3><p>对于一张100 * 100像素的图片来说,图片上有10000个像素点。</p>
-<p>但实习项目中,一张图片可能不需要使用这么多颜色去显示,我们可以通过减少每个像素的调色板来相应缩小图片的大小。</p>
-<p>图片优化的两个思路:</p>
-<ol>
-<li>减少像素点</li>
-<li>减少每个像素点能够显示的颜色</li>
+                <h2 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p><code>Array.from</code>方法用于将两类对象转为真正的数组: </p>
+<ul>
+<li>类似数组的对象</li>
+<li>可便利(iterable)的对象(包括ES6新增的数据结构Set和Map)。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arrayLike = &#123;</span><br><span class="line">  <span class="string">&quot;0&quot;</span>: <span class="string">&quot;a&quot;</span>,</span><br><span class="line">  <span class="string">&quot;1&quot;</span>: <span class="string">&quot;b&quot;</span>,</span><br><span class="line">  <span class="string">&quot;0&quot;</span>: <span class="string">&quot;c&quot;</span>,</span><br><span class="line">  length: <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES5写法</span></span><br><span class="line"><span class="comment">// [].slice === Array.prototype.slice都是去原型上找slice()方法</span></span><br><span class="line"><span class="keyword">var</span> arr1 = [].slice.call(arrayLike); <span class="comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6写法</span></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="built_in">Array</span>.from(arrayLike); <span class="comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]</span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<p>实际应用中,常见的类似数组的对象是<code>DOM操作返回的NodeList集合</code>,以及函数内部的<code>arguments</code>对象。<code>Array.from</code>都可以将它们转为真正的数组。</p>
+<p>只要是部署了<code>Iterator</code>接口的数据结构,<code>Array.from</code>都能转为数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串具有iterator接口</span></span><br><span class="line"><span class="built_in">Array</span>.from(<span class="string">&#x27;hello&#x27;</span>); <span class="comment">// [&#x27;h&#x27;,&#x27;e&#x27;,&#x27;l&#x27;,&#x27;l&#x27;,&#x27;o&#x27;,]</span></span><br></pre></td></tr></table></figure>
+<p>扩展运算符(<code>...</code>)也可以将某些数据结构转为数组。如果一个对象没有部署遍历器接口(<code>Symbol.iterator</code>),就无法转换。Array.from方法还支持转换类似数组的对象(本质就是必须拥有<code>length</code>属性)。但是扩展运算符就无法转换。</p>
+<p><code>Array.from</code>还接收第二个参数,作用类似于数组的<code>map</code>方法,用于对每个元素进行处理,将处理后的值放入返回的数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.from(arrayLike, <span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="built_in">Array</span>.from(arrayLike).map(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h3><p><code>Array.of()</code>方法用于将一组值,转换为数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>) <span class="comment">// [3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.of(<span class="number">3</span>) <span class="comment">// [3]</span></span><br></pre></td></tr></table></figure>
+<p>该方法弥补了数组构造函数<code>Array()</code>的不足。因为参数个数的不同导致<code>Array()</code>的行为有差异。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>() <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">2</span>) <span class="comment">// [ , ]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">2</span>, <span class="number">3</span>) <span class="comment">// [2, 3]</span></span><br></pre></td></tr></table></figure>
+<p>只有当参数个数不少于2时,Array()才会返回由参数组成的新数组。参数只有一个正整数时,实际上指定数组的长度。</p>
+<p><code>Array.of()</code>总是返回参数值组成的数组。如果没有参数,就返回一个空数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Arrayof</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 该方法等同于Array.of()</span></span><br><span class="line">  <span class="keyword">return</span> [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组实例的find-和findIndex"><a href="#数组实例的find-和findIndex" class="headerlink" title="数组实例的find()和findIndex()"></a>数组实例的find()和findIndex()</h3><ol>
+<li>find()</li>
 </ol>
-<h3 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h3><ol>
-<li>不用图片。很多时候会使用到很多修饰类图片,其实这类修饰图片完全可以用<strong>CSS代替</strong>。</li>
-<li>对于移动端来说,屏幕宽度就那么多,完全没必要去加载原图。一般图片都用<strong>CDN加载</strong>,可以计算出适配屏幕额宽度,然后去请求相应裁剪好的图片。</li>
-<li>小图可以使用<strong>base64格式</strong></li>
-<li>将多个图标文件整合到一张图片中(<strong>精灵图</strong>)</li>
+<p><code>find</code>方法,用于找出第一个符合条件的数组成员。它的参数是一个回调函数,所有数组成员依次执行该回调函数,直到找到第一个返回<code>true</code>的成员,并返回该成员。如果没有符合条件的成员,则返回<code>undefined</code>。</p>
+<p><code>find</code>方法的回调函数接收三个参数,依次为当前的值、当前的位置和原数组。</p>
+<ol start="2">
+<li>findIndex()</li>
 </ol>
-<h2 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h2><p>DNS解析也需要时间,可以通过预解析的方式来预先获取域名所对应的IP。</p>
-<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>在函数需要频繁触发时,在规定时间内,只让最后一次生效,前面的不生效。适合多次事件一次响应的情况。<strong>一般适用于输入框实时搜索联想(keyup/input)</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">callback, delay=<span class="number">500</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 记录是否有定时器</span></span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果上次事件没有处理完就取消</span></span><br><span class="line">    <span class="keyword">if</span>(timer) <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">    <span class="comment">// 在事件发生指定时间后才调用指定</span></span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p>在函数频繁触发时,函数执行一次后,只有在大于设定的执行周期后才会继续执行下一次操作。适合多次事件按时间做平均分配触发。<strong>一般用于窗口调整(resize)、页面滚动(scroll)或按钮点击(click)等</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">callback, interval</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> last = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 记录当前时间</span></span><br><span class="line">    <span class="keyword">let</span> now  = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span>(now - last &gt; interval) &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">      <span class="comment">// 记录此次调用的时间</span></span><br><span class="line">      last = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>未完~</p>
-
+<p><code>findIndex</code>方法与<code>find</code>方法类似,返回第一个符合条件数组成员的位置,如果没找到符合条件的成员,则返回<code>-1</code>。</p>
+<p>这两个方法都接收第二个参数,用来绑定回调函数的<code>this</code>对象。</p>
+<p>这两个方法都可以发现<code>NaN</code>,弥补了数组的<code>indexOf</code>方法的不足。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="literal">NaN</span>].indexOf(<span class="literal">NaN</span>); <span class="comment">// -1</span></span><br><span class="line"></span><br><span class="line">[<span class="literal">NaN</span>].findIndex(<span class="function"><span class="params">y</span> =&gt;</span> <span class="built_in">Object</span>.is(<span class="literal">NaN</span>, y)) <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>代码中,<code>indexOf</code>方法无法识别数组的<code>NaN</code>成员,但是<code>findIndex</code>方法可以通过<code>Object.is</code>方法做到。</p>
+<p><code>Object.is(value1, value2)</code>: 判断两个值是否为同一个值。</p>
+<h3 id="数组实例的entries-keys-和values"><a href="#数组实例的entries-keys-和values" class="headerlink" title="数组实例的entries(),keys()和values()"></a>数组实例的entries(),keys()和values()</h3><p>三个方法用于遍历数组。它们都返回一个遍历器对象,可以用<code>for...of</code>循环进行遍历。<code>keys()</code>是对键名的遍历、<code>values()</code>是对键值的遍历、<code>entries()</code>是对键值对的遍历。</p>
+<h3 id="数组实例的flat"><a href="#数组实例的flat" class="headerlink" title="数组实例的flat()"></a>数组实例的flat()</h3><p>数组的成员有时候还是数组,<code>Array.prototype.flat()</code>用于将嵌套的数组’拉平’,变成一维数组。该方法<strong>返回一个新数组</strong>,对原数据没有影响。</p>
+<p><code>flat()</code>默认只会’拉平’一层,如果想要扁平化多层嵌套数组,可以将flat()方法的参数写成一个整数,表示想要扁平化的层数,默认为1。</p>
+<p>如果不管嵌套多少层都要转为一维数组,可以用<code>infinity</code>关键字作为参数。</p>
+<h3 id="Array-prototype-sort-的排序稳定性"><a href="#Array-prototype-sort-的排序稳定性" class="headerlink" title="Array.prototype.sort()的排序稳定性"></a>Array.prototype.sort()的排序稳定性</h3><p>默认情况下,<code>sort()</code>会按照升序重新排列数组元素,即最小的值在前面,最大的值在后面。<code>sort()</code>会在每项上调用String()转型函数,然后比较字符串来决定顺序。即使数组的元素都是数值,也会先把数值转换成字符串再比较、排序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">0</span>，<span class="number">1</span>，<span class="number">5</span>，<span class="number">10</span>，<span class="number">15</span>];</span><br><span class="line">arr.sort() <span class="comment">// [0, 1, 10, 15, 5] 因为字符串&#x27;10&#x27;在&#x27;5&#x27;前面</span></span><br></pre></td></tr></table></figure>
+<p>所有<code>sort()</code>函数可以接收一个比较函数,用于判断哪个值排在前面。</p>
+<p>比较函数接收两个参数,如果第一个参数应该排在第二个参数前面,就返回负值,否则返回正值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从小到大</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">value1, value2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(value1 &lt; value2) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span>(value1 &gt; value2) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 从大到小 把return -1 和 1 交换</span></span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -513,7 +535,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/03/02/xing-neng-you-hua/">https://784801819.github.io/2021/03/02/xing-neng-you-hua/</a>
+                    <a href="https://784801819.github.io/2021/04/12/es6-shu-zu-xin-yu-fa/">https://784801819.github.io/2021/04/12/es6-shu-zu-xin-yu-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -551,8 +573,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">性能优化</span>
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
                                 </a>
                             
                         </div>
@@ -990,17 +1012,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/22/set-he-map/">
+                <a href="/2021/04/12/es6-shu-zu-xin-yu-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Set和Map">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="ES6数组新语法">
                         
-                        <span class="card-title">Set和Map</span>
+                        <span class="card-title">ES6数组新语法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1010,9 +1033,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1021,6 +1044,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1039,13 +1063,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
+                <a href="/2021/03/22/set-he-map/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="浏览器渲染原理">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Set和Map">
                         
-                        <span class="card-title">浏览器渲染原理</span>
+                        <span class="card-title">Set和Map</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1056,7 +1080,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
                             </span>
                         <span class="publish-author">
                             
@@ -1069,8 +1093,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                        <span class="chip bg-color">性能优化</span>
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
                     </a>
                     
                 </div>

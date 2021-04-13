@@ -429,9 +429,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -464,7 +468,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6提供新的数据结构Set。它类似于数组,但是成员的值都是唯一的,没有重复的值。</p>
+                <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6提供新的数据结构Set。它类似于数组,但是<strong>成员的值都是唯一的,没有重复的值</strong>。</p>
 <p><code>Set</code>本身是一个构造函数,用来生成Set数据结构。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">2</span>].forEach(<span class="function"><span class="params">x</span> =&gt;</span> s.add(x));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i); <span class="comment">// 2, 3, 5, 4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上述代码通过<code>add()</code>方法向Set结构加入成员,结果表明<strong>Set结构不会添加重复的值</strong>。</p>
@@ -486,9 +490,9 @@
 <li>Set实例的方法分两大类: <code>操作方法</code>(用于操作数据)和<code>遍历方法</code>(用于遍历成员)</li>
 </ol>
 <ul>
-<li><code>Set.prototype.add(value)</code>: 添加某个值,返回Set结构本身。(可串联多个add())</li>
+<li><code>Set.prototype.add(value)</code>: 添加某个值,返回Set结构本身。(<strong>可串联多个add(),只能有一个参数,第二个及以后参数会被自动忽略。</strong>)</li>
 <li><code>Set.prototype.delete(value)</code>: 删除某个值,返回布尔值,表示删除是否成功。</li>
-<li><code>Set.prototype.has(value)</code>: 查询该值是否为<code>Set</code>的成员。返回一个布尔值。</li>
+<li><code>Set.prototype.has(value)</code>: 查询该值是否为<code>Set</code>的成员(值)。返回一个布尔值。</li>
 <li><code>Set.prototype.clear()</code>: 清除所有成员,无返回值。</li>
 </ul>
 <p><code>Object</code>结构和<code>Set</code>结构的在判断是否包括在一个键上写法不同。</p>
@@ -543,8 +547,100 @@
 </ol>
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/cQje3T"><img src="https://z3.ax1x.com/2021/04/05/cQje3T.png" alt="cQje3T.png"></a></p>
 <ol start="2">
-<li>WeakSet中的对象都是弱引用,即垃圾回收机制不考虑WeakSet对该对象的引用,也就是说,<strong>如果其他对象都不再引用该对象,那么垃圾回收机制会自动回收该对象所占用的内存,不考虑该对象是否还存在与WeakSet中</strong></li>
+<li>WeakSet中的对象都是弱引用,即垃圾回收机制不考虑WeakSet对该对象的引用,也就是说,<strong>如果其他对象都不再引用该对象,那么垃圾回收机制会自动回收该对象所占用的内存,不考虑该对象是否还存在与WeakSet中</strong>。</li>
 </ol>
+<p>因为垃圾回收机制依赖引用计数,如果一个值的引用次数不为<code>0</code>,垃圾回收机制就不会释放这块内存。结束使用该值后,有时候忘记取消引用,可能引发内存泄漏问题。WeakSet里面的引用,都不计入垃圾回收机制,所以不存在这个问题。<strong>WeakSet适合临时存放一组对象,以及存放跟对象绑定的信息。只要这些对象在外部消失,它在WeakSet里的引用就会自动消失。</strong></p>
+<p><strong>ES6规定WeakSet不可遍历。</strong></p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>WeakSet是一个构造函数,可以使用<code>new</code>,创建WeakSet数据结构。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br></pre></td></tr></table></figure>
+<p>作为构造函数,WeakSet可以接收一个数组或或类似数组的对象作为参数。(<strong>任何具有Iterable接口的对象都可以作为WeakSet的参数</strong>)该数组的所有<code>成员</code>(而不是数组本身),都会自动成为WeakSet实例对象的<code>成员</code>。</p>
+<p>WeakSet结构的三个方法:</p>
+<ul>
+<li><code>WeakSet.prototype.add(value</code>): 向WeakSet实例添加一个新成员。</li>
+<li><code>WeakSet.prototype.delete(value)</code>: 清除WeakSet实例的<code>指定</code>成员。</li>
+<li><code>WeakSet.prototype.has(value)</code>: 查询某个值是否在WeakSet实例之中。返回一个布尔值。</li>
+</ul>
+<p>WeakSet没有<code>size</code>属性,没有办法遍历它的成员。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> foo = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">ws.add(<span class="built_in">window</span>).add(obj);</span><br><span class="line"></span><br><span class="line">ws.has(obj); <span class="comment">// true</span></span><br><span class="line">ws.has(foo); <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">ws.delete(<span class="built_in">window</span>);</span><br><span class="line">ws.has(<span class="built_in">window</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">ws.size <span class="comment">// undefined</span></span><br><span class="line">ws.forEach(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item)); <span class="comment">// Uncaught TypeError: ws.forEach is not a function</span></span><br></pre></td></tr></table></figure>
+<p><strong>WeakSet不能遍历,是因为成员都是弱引用,随时都可能消失,遍历机制无法保证成员的存在。WeakSet的一个用处,是存储DOM节点,不用担心这些节点从文档移除时,引发内存泄漏。</strong></p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="含义和基本用法"><a href="#含义和基本用法" class="headerlink" title="含义和基本用法"></a>含义和基本用法</h3><p>ES6提供的Map数据结构。类似于对象,也是键值对的集合,但是键名不限于字符串,各种类型的值(包括对象)都能当作键。</p>
+<p>作为构造函数,<code>Map</code>也可以接收一个数组作为参数。该数组的成员是一个个表示键值对的数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="string">&#x27;name&#x27;</span>,  <span class="string">&#x27;张三&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;Author&#x27;</span>]</span><br><span class="line">]);</span><br><span class="line">map.size; <span class="comment">// 2</span></span><br><span class="line">map.has(<span class="string">&#x27;name&#x27;</span>); <span class="comment">// true</span></span><br><span class="line">map.get(<span class="string">&#x27;name&#x27;</span>); <span class="comment">// 张三</span></span><br><span class="line">map.has(<span class="string">&#x27;title&#x27;</span>); <span class="comment">// true</span></span><br><span class="line">map.get(<span class="string">&#x27;title&#x27;</span>); <span class="comment">// Author</span></span><br></pre></td></tr></table></figure>
+<p>实际上执行的是以下代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> items = [</span><br><span class="line">  [<span class="string">&#x27;name&#x27;</span>,  <span class="string">&#x27;张三&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;Author&#x27;</span>]</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">items.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">  map.set(item, index)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>不仅仅是数组,任何具有Iterator接口、且每个成员都是一个双元素(例如: [‘a’, 1])的数组的数组结构都可以当作<code>Map</code>构造函数的参数(如果数组中只有一个元素,这个元素会被当作键名,键值为undefined)。这就是说,<code>Set</code>和<code>Map</code>都可以用来生成新的<code>Map</code>。</p>
+<p><strong>如果对同一个键多次赋值,后面的值将覆盖前面的值。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">map.set(<span class="number">1</span>, <span class="string">&#x27;aaa&#x27;</span>)</span><br><span class="line">   .set(<span class="number">1</span>, <span class="string">&#x27;bbb&#x27;</span>);</span><br><span class="line"></span><br><span class="line">map.get(<span class="number">1</span>); <span class="comment">// bbb</span></span><br></pre></td></tr></table></figure>
+<p>如果读取一个未知的键,则返回<code>undefined</code>。</p>
+<p>只有对同一个对象的引用,Map结构才会将其视为同一个键。不同的对象引用地址不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> k1 = [<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> k2 = [<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"></span><br><span class="line">map.set(k1, <span class="number">111</span>);</span><br><span class="line">map.set(k2, <span class="number">222</span>);</span><br><span class="line"></span><br><span class="line">map.get(k1); <span class="comment">// 111</span></span><br><span class="line">map.get(k2); <span class="comment">// 222</span></span><br></pre></td></tr></table></figure>
+<p><code>Map</code>的键实际上是跟内存地址绑定的,只要内存地址不同,那么就视为两个键。<code>Map</code>解决了同名属性碰撞的问题。</p>
+<p>如果Map的键是一个简单类型的值,则只要两个值<code>严格相等</code>,Map就会将其视为一个键,要注意的是,<code>undefined</code>和<code>null</code>是两个不同的键;两个<code>NaN</code>在Map中视为同一个键。</p>
+<h3 id="实例的属性和操作方法"><a href="#实例的属性和操作方法" class="headerlink" title="实例的属性和操作方法"></a>实例的属性和操作方法</h3><ol>
+<li>size属性</li>
+</ol>
+<p><code>size</code>属性返回Map结构的成员总数。</p>
+<ol start="2">
+<li>Map.prototype.set(key, value)</li>
+</ol>
+<p><code>set</code>方法设置键名<code>key</code>对应的键值为<code>value</code>,然后返回整个Map结构。如果<code>key</code>已经有值,则键值会被更新,否则就新生成该键。<code>set</code>可以采用链式编程的写法。(<strong>只能传key和value,如果有第三个及以后的参数Map会自动忽略。</strong>)</p>
+<ol start="3">
+<li>Map.prototype.get(key)</li>
+</ol>
+<p><code>get</code>方法读取<code>key</code>对应的键值,如果找不到<code>key</code>,返回<code>undefined</code>。</p>
+<ol start="4">
+<li>Map.prototype.has(key)</li>
+</ol>
+<p><code>has</code>方法返回一个布尔值,表示<code>某个键</code>是否在当前Map对象之中。</p>
+<ol start="5">
+<li>Map.prototype.delete(key)</li>
+</ol>
+<p><code>delete</code>方法删除某个键,返回<code>true</code>。如果删除失败返回<code>false</code>。</p>
+<ol start="6">
+<li>Map.prototype.clear()</li>
+</ol>
+<p><code>clear</code>方法清除所有成员,没有返回值。</p>
+<h3 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h3><p>Map结构原生提供三个遍历器生成函数和一个遍历方法。</p>
+<ul>
+<li><code>Map.prototype.keys()</code>: 返回键名的遍历器</li>
+<li><code>Map.prototype.values()</code>: 返回键值的遍历器</li>
+<li><code>Map.prototype.entries()</code>: 返回键值对的遍历器,Map结构的默认遍历器接口(<code>Symbol.iterator属性</code>),就是<code>entries</code>方法。</li>
+<li><code>Map.prototype.forEach()</code>: 遍历Map的所有成员</li>
+</ul>
+<p>Map的遍历顺序就是插入顺序:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;no&quot;</span>],</span><br><span class="line">  [<span class="string">&quot;b&quot;</span>, <span class="string">&quot;yes&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">map.keys(); <span class="comment">// MapIterator &#123;&quot;a&quot;, &quot;b&quot;&#125;</span></span><br><span class="line"></span><br><span class="line">map.values(); <span class="comment">// MapIterator &#123;&quot;no&quot;, &quot;yes&quot;&#125;</span></span><br><span class="line"></span><br><span class="line">map.entries(); <span class="comment">// MapIterator &#123;&quot;F&quot; =&gt; &quot;no&quot;, &quot;T&quot; =&gt; &quot;yes&quot;&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Map结构转为数组结构,比较快速的方法是使用扩展运算符(<code>...</code>)。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">&#x27;one&#x27;</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">&#x27;two&#x27;</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="string">&#x27;three&#x27;</span>],</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">[...map.keys()] <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line">[...map.values()] <span class="comment">// [&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;]</span></span><br><span class="line"></span><br><span class="line">[...map.entries()] <span class="comment">// [ [1,&#x27;one&#x27;], [2, &#x27;two&#x27;], [3, &#x27;three&#x27;] ]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为map.entries()是默认的遍历器接口,可以直接写成</span></span><br><span class="line">[...map]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>结合数组的<code>map</code>方法、<code>filter</code>方法,可以实现Map的遍历和过滤(Map本身没有<code>map</code>和<code>filter</code>方法)。</p>
+<h3 id="与其他数据结构的相互转换"><a href="#与其他数据结构的相互转换" class="headerlink" title="与其他数据结构的相互转换"></a>与其他数据结构的相互转换</h3><ol>
+<li>Map转为数组</li>
+</ol>
+<p>Map转为数组最方便的方法,就是使用扩展运算符(<code>...</code>)。</p>
+<ol start="2">
+<li>数组转为Map</li>
+</ol>
+<p>将数组传入Map构造函数,就可以转为Map。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="literal">true</span>, <span class="number">7</span>],</span><br><span class="line">  [&#123;<span class="string">&quot;foo&quot;</span>, <span class="number">3</span>&#125;, [<span class="string">&quot;abc&quot;</span>]]</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment">// Map &#123;</span></span><br><span class="line"><span class="comment">//   true =&gt; 7,</span></span><br><span class="line"><span class="comment">//   Object &#123;foo: 3&#125; =&gt; [&quot;abc&quot;]</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Map转为对象</li>
+</ol>
+<p>如果所有的Map的键都是字符串,它可以无损的转为对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mapToObj</span>(<span class="params">map</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 创建一个没有任何属性的对象</span></span><br><span class="line">  <span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> [key, value] <span class="keyword">of</span> map) &#123;</span><br><span class="line">    obj[key] = value;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>().set(<span class="string">&#x27;yes&#x27;</span>, <span class="literal">true</span>).set(<span class="string">&#x27;no&#x27;</span>, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">// 或者可写成const myMap = new Map([ [&#x27;yes&#x27;, true], [&#x27;no&#x27;, false] ]);</span></span><br><span class="line"></span><br><span class="line">mapToObj(myMap); <span class="comment">// &#123; yes: true, no: false &#125;</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>对象转为Map</li>
+</ol>
+<p>对象转为Map可以通过<code>Object.entries(obj)</code>,该方法返回一个给定对象自身<code>可枚举属性</code>的键值对数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>(<span class="built_in">Object</span>.entries(obj));</span><br></pre></td></tr></table></figure>
+<p>或者可以通过<code>Object.keys(obj)</code>,该方法返回一个给定对象自身<code>可枚举属性</code>组成的数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">objToMap</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(obj)) &#123;</span><br><span class="line">    map.set(key, obj[key]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objToMap(&#123; <span class="attr">yes</span>: <span class="literal">true</span>, <span class="attr">no</span>: <span class="literal">false</span> &#125;); </span><br><span class="line"><span class="comment">// Map &#123;&quot;yes&quot; =&gt; true, &quot;no&quot; =&gt; false&#125; </span></span><br></pre></td></tr></table></figure>
+<h2 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h2><h3 id="含义-1"><a href="#含义-1" class="headerlink" title="含义"></a>含义</h3><p><code>WeakMap</code>结构与<code>Map</code>结构类似,也是用于生成键值对的集合。<code>WeakMap</code>与<code>Map</code>的区别有两点:</p>
+<ul>
+<li><code>WeakMap</code>只接收对象作为键名(<code>null</code>除外),不接受其他类型的值作为键名。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wm = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Uncaught TypeError: Invalid value used as weak map key.</span></span><br><span class="line">map.set(<span class="literal">null</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
+<li><code>WeakMap</code>的键名所指向的对象,不计入垃圾回收机制。</li>
+</ul>
+<p><code>WeakMap</code>设计目的在于,有时候想在某个对象上存放一些数据,但是会形成对于这个对象的引用。一旦不再需要该对象,就必须手动删除这个引用(<code>null赋值</code>)。否则会导致内存泄漏问题。</p>
+<p>WeakMap的键名所引用的对象都是弱引用,即垃圾回收机制不将该引用考虑在内。所有,只要所引用的对象的其他引用被清除,垃圾回收机制就会释放该对象所占用的内存。也就是说,WeakMap里面的键名对象和所对应的键值对会自动消失,不用手动删除引用。</p>
+<h3 id="WeakMap的语法"><a href="#WeakMap的语法" class="headerlink" title="WeakMap的语法"></a>WeakMap的语法</h3><p>WeakMap与Map在API的区别主要是两个,一是没有遍历操作(即没有<code>keys()</code>、<code>values()</code>、<code>entries()</code>方法),也没有<code>size</code>属性。因为没有办法列出所有键名,跟垃圾回收机制是否运行相关。为了防止出现不确定性,就统一规定不能取到键名。二是无法清空,即不支持<code>clear</code>方法。因此,WeakMap只有四个方法可用: <code>get()</code>、<code>set()</code>、<code>has()</code>、<code>delete()</code>。</p>
 
                 
             </div>
@@ -608,7 +704,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1044,18 +1144,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/03/22/set-he-map/">
+                <a href="/2021/04/12/es6-shu-zu-xin-yu-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Set和Map">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="ES6数组新语法">
                         
-                        <span class="card-title">Set和Map</span>
+                        <span class="card-title">ES6数组新语法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1065,9 +1164,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1076,7 +1175,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
