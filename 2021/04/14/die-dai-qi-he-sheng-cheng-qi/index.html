@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="性能优化琐碎, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="迭代器和生成器, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>性能优化琐碎 | W.BOWEN&#39;s blog</title>
+    <title>迭代器和生成器 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">性能优化琐碎</h1>
+                    <h1 class="description center-align post-title">迭代器和生成器</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">性能优化</span>
+                            <a href="/tags/JavaScript/">
+                                <span class="chip bg-color">JavaScript</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-02
+                    2021-04-14
                 </div>
                 
 
@@ -468,115 +468,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h2><p>浏览器会从上到下解析文档</p>
+                <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><p><code>迭代器模式</code>描述一个方案,即可以把有些结构称为可迭代对象(iterable),因为它们实现了正式的<code>Iterable</code>接口,而且可以通过迭代器<code>Iterator</code>消费。</p>
+<h3 id="可迭代协议"><a href="#可迭代协议" class="headerlink" title="可迭代协议"></a>可迭代协议</h3><p>实现Iterable接口(可迭代协议)要求同时具备两种能力: 支持迭代的自我识别能力和创建实现Iterator接口的对象的能力。在ECMAScript中,这意味着必须暴露一个属性作为<code>默认迭代器</code>,而且这个属性必须使用特殊的<code>Symbol.iterator</code>作为键。这个默认迭代器必须引用一个迭代器工厂函数,调用这个工厂函数必须返回一个<code>新迭代器</code>。</p>
+<p>实现Iterable接口的内置类型:</p>
 <ul>
-<li>遇到HTML标记,调用HTML解析器解析对应的token(一个token就是一个标签文本的序列化)并构建DOM树。</li>
-<li>遇见style/link标记调用相应的解析器处理CSS标记,并构建出CSS样式树。</li>
-<li>遇见script标记,调用JavaScript引擎处理script标记、绑定事件、修改DOM树/CSS样式树等。</li>
-<li>将DOM树和CSS样式树,合并成一个渲染树。</li>
-<li>根据渲染树来渲染,以计算每个节点的几何信息。</li>
-<li>最终将各个节点绘制到屏幕上。</li>
+<li>字符串</li>
+<li>数组</li>
+<li>映射(Map)</li>
+<li>集合(Set)</li>
+<li>argumens对象</li>
+<li>Nodelist等DOM集合类型</li>
 </ul>
-<h2 id="阻塞渲染"><a href="#阻塞渲染" class="headerlink" title="阻塞渲染"></a>阻塞渲染</h2><ol>
-<li>关于CSS阻塞:</li>
-</ol>
+<p>注意,<code>数值类型</code>和<code>对象类型</code>没有实现Iterable接口。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/ccOuLV"><img src="https://z3.ax1x.com/2021/04/14/ccOuLV.png" alt="ccOuLV.png"></a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>().add(<span class="string">&quot;a&quot;</span>).add(<span class="string">&quot;b&quot;</span>).add(<span class="string">&quot;c&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(set[<span class="built_in">Symbol</span>.iterator]); <span class="comment">// ƒ values() &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(set[<span class="built_in">Symbol</span>.iterator] ()); <span class="comment">// SetIterator &#123;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其他实现Iterable接口的内置类型与上述代码类似,调用这个工厂函数会生成一个迭代器。</p>
+<p>接收可迭代对象的原始语言特性包括:</p>
 <ul>
-<li>style标签中的样式:<ol>
-<li>由html解析器进行解析</li>
-<li>不阻塞浏览器渲染(可能产生”闪屏现象”)</li>
-<li>不阻塞DOM解析</li>
-</ol>
-</li>
-<li>link引入的外部CSS样式(推荐方式):<ol>
-<li>由CSS解析器进行解析</li>
-<li>阻塞浏览器渲染(可解决<code>闪屏现象</code>)</li>
-<li>阻塞后续js语句执行</li>
-<li>不阻塞DOM解析</li>
-</ol>
-</li>
+<li>for…of循环</li>
+<li>数组解构<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">&quot;aa&quot;</span>, <span class="string">&quot;bb&quot;</span>, <span class="string">&quot;cc&quot;</span>];</span><br><span class="line"><span class="keyword">let</span> [a, b, c] = arr;</span><br><span class="line"><span class="built_in">console</span>.log(a, b, c); <span class="comment">// aa, bb, cc</span></span><br></pre></td></tr></table></figure></li>
+<li>扩展运算符(…)</li>
+<li>Array.from()</li>
+<li>创建集合(Set),默认调用values()方法</li>
+<li>创建映射(Map),默认调用entries()方法</li>
+<li>Promise.all(iterable),如果参数中的promise值都成功则成功,否则失败。如果参数中包含非promise值,这些值会被忽略,但仍然会放在返回数组中。</li>
+<li>Promise.race(iterable),返回一个promise</li>
 </ul>
-<p>优化核心理念: 尽可能快的提高外部CSS加载速度</p>
-<ul>
-<li>使用CDN节点进行外部资源加速</li>
-<li>对CSS进行压缩(webpack<code>OptimizeCssAssetsPlugin</code>)</li>
-<li>减少HTTP请求数,将多个CSS文件合并</li>
-</ul>
-<ol start="2">
-<li>关于js阻塞:</li>
-</ol>
-<ul>
-<li><p>阻塞后续DOM解析:</p>
-<p>原因: 浏览器不知道后续脚本的内容,如果先去解析下面的DOM,之后JS操作DOM删除了后面所有的DOM,便是做了无用功！</p>
-</li>
-<li><p>阻塞页面的渲染</p>
-<p>原因: JS野能操作DOM给DOM设置样式,浏览器会等JS脚本执行完毕后,渲染最终的结果。</p>
-</li>
-<li><p>阻塞后续JS执行</p>
-</li>
-</ul>
-<h2 id="CSS图层"><a href="#CSS图层" class="headerlink" title="CSS图层"></a>CSS图层</h2><ol>
-<li>图层创建条件</li>
-</ol>
-<ul>
-<li>拥有具有3D变化的CSS属性(如: transform: translateZ(0))</li>
-<li>使用加速视频解码<code>&lt;video&gt;</code>节点</li>
-<li><code>&lt;canvas&gt;</code>节点</li>
-<li>CSS3动画的节点</li>
-<li>拥有CSS加速属性的元素(如: will-change)</li>
-</ul>
-<ol start="2">
-<li>重绘</li>
-</ol>
-<ul>
-<li>是一个元素外观的改变所触发的浏览器行为,例如: 改变背景色、outline等属性。</li>
-<li>图层是以图层为单位,如果图层中的某个元素需要重绘,那么整个图层都会重绘</li>
-</ul>
-<ol start="3">
-<li>重排</li>
-</ol>
-<ul>
-<li>当页面结构或元素大小发生变化时,例如: 改变宽高、display、overflow等。</li>
-</ul>
-<p><strong>重绘不一定需要重排,但重排必定会发生重绘。</strong></p>
-<ol start="4">
-<li>常见触发重排的操作</li>
-</ol>
-<ul>
-<li>增加、删除、修改DOM节点时,会导致重绘和重排。</li>
-<li>当移动DOM的位置</li>
-<li>当修改CSS样式</li>
-<li><strong>当Resize窗口的时候(移动端不会)</strong></li>
-<li><strong>当修改网页的默认字体时</strong></li>
-<li><strong>获取某些属性时(width、height…)</strong></li>
-</ul>
-<ol start="5">
-<li>优化方案</li>
-</ol>
-<ul>
-<li><strong>元素位置移动变化时候尽量使用CSS3的transform来替代top、left等操作</strong></li>
-<li><strong>使用opcity去替代visibility,但是opcity必须配合图层(will-change: transform)使用</strong></li>
-<li>避免多次修改DOM样式,预先定义好class,去修改DOM的className</li>
-<li><strong>如果要对一个元素进行复杂操作时,可以先<code>display: none;</code>隐藏,操作完后再显示。该方式只会触发两次重排重绘</strong></li>
-<li>通过<code>documentFragment</code>创建DOM碎片,在它上面批量操作,然后再加到文档中</li>
-</ul>
-<h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><h3 id="计算图片大小"><a href="#计算图片大小" class="headerlink" title="计算图片大小"></a>计算图片大小</h3><p>对于一张100 * 100像素的图片来说,图片上有10000个像素点。</p>
-<p>但实习项目中,一张图片可能不需要使用这么多颜色去显示,我们可以通过减少每个像素的调色板来相应缩小图片的大小。</p>
-<p>图片优化的两个思路:</p>
-<ol>
-<li>减少像素点</li>
-<li>减少每个像素点能够显示的颜色</li>
-</ol>
-<h3 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h3><ol>
-<li>不用图片。很多时候会使用到很多修饰类图片,其实这类修饰图片完全可以用<strong>CSS代替</strong>。</li>
-<li>对于移动端来说,屏幕宽度就那么多,完全没必要去加载原图。一般图片都用<strong>CDN加载</strong>,可以计算出适配屏幕额宽度,然后去请求相应裁剪好的图片。</li>
-<li>小图可以使用<strong>base64格式</strong></li>
-<li>将多个图标文件整合到一张图片中(<strong>精灵图</strong>)</li>
-</ol>
-<h2 id="DNS解析"><a href="#DNS解析" class="headerlink" title="DNS解析"></a>DNS解析</h2><p>DNS解析也需要时间,可以通过预解析的方式来预先获取域名所对应的IP。</p>
-<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>在函数需要频繁触发时,在规定时间内,只让最后一次生效,前面的不生效。适合多次事件一次响应的情况。<strong>一般适用于输入框实时搜索联想(keyup/input)</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">callback, delay=<span class="number">500</span></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 记录是否有定时器</span></span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 如果上次事件没有处理完就取消</span></span><br><span class="line">    <span class="keyword">if</span>(timer) <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">    <span class="comment">// 在事件发生指定时间后才调用指定</span></span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流(throttle)"></a>节流(throttle)</h2><p>在函数频繁触发时,函数执行一次后,只有在大于设定的执行周期后才会继续执行下一次操作。适合多次事件按时间做平均分配触发。<strong>一般用于窗口调整(resize)、页面滚动(scroll)或按钮点击(click)等</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">callback, interval</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> last = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 记录当前时间</span></span><br><span class="line">    <span class="keyword">let</span> now  = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span>(now - last &gt; interval) &#123;</span><br><span class="line">      callback.call(<span class="built_in">this</span>, event)</span><br><span class="line">      <span class="comment">// 记录此次调用的时间</span></span><br><span class="line">      last = now</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
                 
             </div>
             <hr/>
@@ -602,7 +520,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/03/02/xing-neng-you-hua/">https://784801819.github.io/2021/03/02/xing-neng-you-hua/</a>
+                    <a href="https://784801819.github.io/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">https://784801819.github.io/2021/04/14/die-dai-qi-he-sheng-cheng-qi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -640,8 +558,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">性能优化</span>
+                                <a href="/tags/JavaScript/">
+                                    <span class="chip bg-color">JavaScript</span>
                                 </a>
                             
                         </div>
@@ -1079,17 +997,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/22/set-he-map/">
+                <a href="/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Set和Map">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="迭代器和生成器">
                         
-                        <span class="card-title">Set和Map</span>
+                        <span class="card-title">迭代器和生成器</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1099,9 +1018,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1110,6 +1029,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1128,13 +1048,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/27/liu-lan-qi-xuan-ran-yuan-li/">
+                <a href="/2021/04/13/dui-xiang-xin-fang-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="浏览器渲染原理">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="对象的一些方法...">
                         
-                        <span class="card-title">浏览器渲染原理</span>
+                        <span class="card-title">对象的一些方法...</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1145,7 +1065,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
                             </span>
                         <span class="publish-author">
                             
@@ -1158,8 +1078,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-                        <span class="chip bg-color">性能优化</span>
+                    <a href="/tags/JavaScript/">
+                        <span class="chip bg-color">JavaScript</span>
                     </a>
                     
                 </div>
