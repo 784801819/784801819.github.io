@@ -476,8 +476,22 @@
 <p>如果非对象参数出现在源对象的位置(即非首参数),那么处理规则有所不同。首先这些参数都会转为对象,如果无法转成对象就会跳过。</p>
 <ul>
 <li><code>undefined</code>和<code>null</code>不在首参数,会直接跳过不会报错。</li>
-<li>其他类型的值(即<code>数值、布尔值和字符串</code>)不在受参数,也不会报错。但是除了<code>字符串</code>会以数组形式,拷贝入目标对象,其他值不会产生效果。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">&#x27;abc&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> c = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, a, b, c);</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;0: &quot;a&quot;, 1: &quot;b&quot;, 2: &quot;c&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>(a) <span class="comment">// </span></span><br></pre></td></tr></table></figure></li>
+<li>其他类型的值(即<code>数值、布尔值和字符串</code>)不在受参数,也不会报错。但是除了<code>字符串</code>会以数组形式,拷贝入目标对象,其他值不会产生效果。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">&#x27;abc&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> c = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, a, b, c);</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;0: &quot;a&quot;, 1: &quot;b&quot;, 2: &quot;c&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>(a) <span class="comment">// </span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h2></li>
 </ul>
+<p>要修改属性的默认特性,必须使用<code>Object.defineProperty()</code>方法。该方法接收三个参数:</p>
+<ul>
+<li>要给其添加属性的对象</li>
+<li>属性的名称</li>
+<li>描述对象符: <ol>
+<li><code>configurable</code>: 表示是否可以通过delete删除并重新定义,是否可以修改它的特性以及是否可以把它改为访问器属性。默认为<code>true</code></li>
+<li><code>enumerable</code>: 表示属性是否可以通过for-in循环返回,默认为<code>true</code></li>
+<li><code>writable</code>: 表示属性的值是否可以被修改。默认为<code>true</code></li>
+<li><code>value</code>: 包含属性的实际值。默认为<code>undefined</code></li>
+</ol>
+</li>
+</ul>
+<p>如果一个属性被定义为不可配置后,就不能再变回可配置的了。再次调用Object.defineProperty()并修改任何非writable属性会导致错误</p>
 
                 
             </div>
@@ -985,13 +999,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">
+                <a href="/2021/04/14/xiao-cheng-xu-zhu-yi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="迭代器和生成器">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="小程序总结">
                         
-                        <span class="card-title">迭代器和生成器</span>
+                        <span class="card-title">小程序总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1015,8 +1029,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
+                    <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                        <span class="chip bg-color">小程序</span>
                     </a>
                     
                 </div>

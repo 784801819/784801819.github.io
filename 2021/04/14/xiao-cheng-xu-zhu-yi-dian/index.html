@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="迭代器和生成器, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="小程序总结, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>迭代器和生成器 | W.BOWEN&#39;s blog</title>
+    <title>小程序总结 | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">迭代器和生成器</h1>
+                    <h1 class="description center-align post-title">小程序总结</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/JavaScript/">
-                                <span class="chip bg-color">JavaScript</span>
+                            <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                <span class="chip bg-color">小程序</span>
                             </a>
                         
                     </div>
@@ -468,33 +468,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><p><code>迭代器模式</code>描述一个方案,即可以把有些结构称为可迭代对象(iterable),因为它们实现了正式的<code>Iterable</code>接口,而且可以通过迭代器<code>Iterator</code>消费。</p>
-<h3 id="可迭代协议"><a href="#可迭代协议" class="headerlink" title="可迭代协议"></a>可迭代协议</h3><p>实现Iterable接口(可迭代协议)要求同时具备两种能力: 支持迭代的自我识别能力和创建实现Iterator接口的对象的能力。在ECMAScript中,这意味着必须暴露一个属性作为<code>默认迭代器</code>,而且这个属性必须使用特殊的<code>Symbol.iterator</code>作为键。这个默认迭代器必须引用一个迭代器工厂函数,调用这个工厂函数必须返回一个<code>新迭代器</code>。</p>
-<p>实现Iterable接口的内置类型:</p>
+                <h2 id="微信小程序"><a href="#微信小程序" class="headerlink" title="微信小程序"></a>微信小程序</h2><ol>
+<li>之前的<code>getUserInfo</code>无法使用,现在需要使用<code>getUserProfile</code>获取用户信息</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">wx.getUserProfile(&#123;</span><br><span class="line">  desc: <span class="string">&#x27;用于完善会员资料&#x27;</span>,</span><br><span class="line">  success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;获取成功&quot;</span>, res);</span><br><span class="line">    <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">      userInfo: res.userInfo</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;获取失败&quot;</span>, err);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>多行文本溢出隐藏</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 多行 */</span></span><br><span class="line">  <span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span>;</span><br><span class="line">  <span class="selector-tag">text-overflow</span>: <span class="selector-tag">ellipsis</span>;</span><br><span class="line">  <span class="selector-tag">display</span>: <span class="selector-tag">-webkit-box</span>;</span><br><span class="line">  <span class="comment">/* 设置对齐模式 */</span></span><br><span class="line">  <span class="selector-tag">-webkit-box-orient</span>: <span class="selector-tag">vertical</span>;</span><br><span class="line">  <span class="comment">/* 设置多行的行数 */</span></span><br><span class="line">  <span class="selector-tag">-webkit-line-clamp</span>: 2 ;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>flex注意点</li>
+</ol>
 <ul>
-<li>字符串</li>
-<li>数组</li>
-<li>映射(Map)</li>
-<li>集合(Set)</li>
-<li>argumens对象</li>
-<li>Nodelist等DOM集合类型</li>
+<li>如果使用微信小程序<code>scroll-view</code>组件,需要设置<code>enable-flex</code>,不然会导致<code>display: flex;</code>失效。</li>
+<li>如果设置了<code>enable-flex</code>,需要指定高度。</li>
 </ul>
-<p>注意,<code>数值类型</code>和<code>对象类型</code>没有实现Iterable接口。</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/ccOuLV"><img src="https://z3.ax1x.com/2021/04/14/ccOuLV.png" alt="ccOuLV.png"></a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>().add(<span class="string">&quot;a&quot;</span>).add(<span class="string">&quot;b&quot;</span>).add(<span class="string">&quot;c&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(set[<span class="built_in">Symbol</span>.iterator]); <span class="comment">// ƒ values() &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(set[<span class="built_in">Symbol</span>.iterator] ()); <span class="comment">// SetIterator &#123;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&#125;</span></span><br></pre></td></tr></table></figure>
-<p>其他实现Iterable接口的内置类型与上述代码类似,调用这个工厂函数会生成一个迭代器。</p>
-<p>接收可迭代对象的原始语言特性包括:</p>
+<ol start="4">
+<li>前后端交互</li>
+</ol>
 <ul>
-<li>for…of循环</li>
-<li>数组解构<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">&quot;aa&quot;</span>, <span class="string">&quot;bb&quot;</span>, <span class="string">&quot;cc&quot;</span>];</span><br><span class="line"><span class="keyword">let</span> [a, b, c] = arr;</span><br><span class="line"><span class="built_in">console</span>.log(a, b, c); <span class="comment">// aa, bb, cc</span></span><br></pre></td></tr></table></figure></li>
-<li>扩展运算符(…)</li>
-<li>Array.from()</li>
-<li>创建集合(Set),默认调用values()方法</li>
-<li>创建映射(Map),默认调用entries()方法</li>
-<li>Promise.all(iterable),如果参数中的promise值都成功则成功,否则失败。如果参数中包含非promise值,这些值会被忽略,但仍然会放在返回数组中。</li>
-<li>Promise.race(iterable),返回一个promise</li>
+<li>语法: wx.request()</li>
+<li>注意点: <ol>
+<li>协议必须是https协议</li>
+<li>一个接口最多配置20个域名</li>
+<li>并发限制上限是10个</li>
+</ol>
+</li>
 </ul>
-
+<ol start="5">
+<li>wx:for注意点</li>
+</ol>
+<ul>
+<li>与vue不同,vue遍历后<code>:key</code>需要item.xxx来拿到想要的唯一值。</li>
+<li>微信小程序遍历后只需要wx:key=”xxx”直接写,不需要通过item再去取值</li>
+<li>默认数组的当前项的下标变量名默认为<code> index</code>，数组当前项的变量名默认为<code> item</code>。如果需要嵌套循环那么item就不合理了。需要使用<code>wx:for-item</code>可以指定数组当前元素的变量名,使用<code>wx:for-index</code>可以指定数组当前下标的变量名</li>
+</ul>
+<ol start="6">
+<li>如果请求参数是一个范围值</li>
+</ol>
+<ul>
+<li>前++和后++的区别<ol>
+<li>如果先看到的是运算符就先运算在赋值</li>
+<li>如果先看到的是值那么就先赋值在运算</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(index &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="keyword">await</span> request(<span class="string">&quot;...&quot;</span>, &#123;<span class="attr">xxx</span>: index++&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -520,7 +539,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">https://784801819.github.io/2021/04/14/die-dai-qi-he-sheng-cheng-qi/</a>
+                    <a href="https://784801819.github.io/2021/04/14/xiao-cheng-xu-zhu-yi-dian/">https://784801819.github.io/2021/04/14/xiao-cheng-xu-zhu-yi-dian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -558,8 +577,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/JavaScript/">
-                                    <span class="chip bg-color">JavaScript</span>
+                                <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                    <span class="chip bg-color">小程序</span>
                                 </a>
                             
                         </div>
@@ -1002,13 +1021,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">
+                <a href="/2021/04/14/xiao-cheng-xu-zhu-yi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="迭代器和生成器">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="小程序总结">
                         
-                        <span class="card-title">迭代器和生成器</span>
+                        <span class="card-title">小程序总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1033,8 +1052,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
+                    <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                        <span class="chip bg-color">小程序</span>
                     </a>
                     
                 </div>
