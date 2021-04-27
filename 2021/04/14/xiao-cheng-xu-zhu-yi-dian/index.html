@@ -499,6 +499,7 @@
 <li>wx:for注意点</li>
 </ol>
 <ul>
+<li><strong>wx:for语法: wx:for=”“</strong></li>
 <li>与vue不同,vue遍历后<code>:key</code>需要item.xxx来拿到想要的唯一值。</li>
 <li>微信小程序遍历后只需要wx:key=”xxx”直接写,不需要通过item再去取值</li>
 <li>默认数组的当前项的下标变量名默认为<code> index</code>，数组当前项的变量名默认为<code> item</code>。如果需要嵌套循环那么item就不合理了。需要使用<code>wx:for-item</code>可以指定数组当前元素的变量名,使用<code>wx:for-index</code>可以指定数组当前下标的变量名</li>
@@ -513,7 +514,71 @@
 </ol>
 </li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(index &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="keyword">await</span> request(<span class="string">&quot;...&quot;</span>, &#123;<span class="attr">xxx</span>: index++&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(index &lt; <span class="number">5</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> res = <span class="keyword">await</span> request(<span class="string">&quot;...&quot;</span>, &#123;<span class="attr">xxx</span>: index++&#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 不用等待五次请求发送完,用户体验好,但是会多请求一次</span></span><br><span class="line">  <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">    rankList: res</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果this.setData放在while循环外面,会等待五次请求发送完,导致白屏的情况,用户体验不好</li>
+</ul>
+<ol start="7">
+<li>封装组件</li>
+</ol>
+<ul>
+<li>在要引入组件的父组件的json文件引入公共组件的路径<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;usingComponents&quot;: &#123;</span><br><span class="line">  &quot;NavHeader&quot;: &quot;/component/NavHeader/NavHeader&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="8">
+<li>内网穿透</li>
+</ol>
+<ul>
+<li>使用utools下载内网穿透插件,配置自己的外网域名并连接<code>https://bowen593w1998.cn.utools.club</code></li>
+<li>在自己封装的请求功能函数中配置该地址<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mobileHost: <span class="string">&quot;https://bowen593w1998.cn.utools.club&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过wx.request()发送请求,将该地址拼接<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">&#x27;./config&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (url, data=&#123;&#125;, methods=<span class="string">&quot;GET&quot;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: config.mobileHost + url,</span><br><span class="line">      data,</span><br><span class="line">      methods</span><br><span class="line">      success: <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        resolve(res.data);</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        reject(err);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这样可以解决真机调试时获取不到接口数据问题。</li>
+</ul>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><ol>
+<li>什么是事件委托</li>
+</ol>
+<ul>
+<li>将子元素的事件委托(绑定)给父元素</li>
+</ul>
+<ol start="2">
+<li>事件委托的好处</li>
+</ol>
+<ul>
+<li>减少绑定次数</li>
+<li>后期新添加的元素也可以享受到之前委托的事件</li>
+</ul>
+<ol start="3">
+<li>事件委托的原理</li>
+</ol>
+<ul>
+<li>通过事件冒泡</li>
+</ul>
+<ol start="4">
+<li>触发事件的是谁</li>
+</ol>
+<ul>
+<li>子元素</li>
+</ul>
+<ol start="5">
+<li>如何找到触发事件的对象</li>
+</ol>
+<ul>
+<li>event.target</li>
+<li>currentTarget和target的区别<ol>
+<li>currentTarget要求绑定事件的元素<code>一定</code>是触发事件的元素</li>
+<li>target<code>不一定</code>是触发事件的元素</li>
+</ol>
+</li>
+</ul>
+<ol start="6">
+<li>小程序向event对象传参的两种方式:</li>
+</ol>
+<ul>
+<li>通过<code>id</code>标识当前组件,<strong>唯一的</strong><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;target&#x27;</span>: &#123;</span><br><span class="line">  id: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&#x27;currentTarget&#x27;</span>: &#123;</span><br><span class="line">  id: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过<code>data-key=&#39;value&#39;</code>,<strong>需要传入多个数据</strong><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;target&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&#x27;currentTarget&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -1067,13 +1132,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/13/dui-xiang-xin-fang-fa/">
+                <a href="/2021/04/14/die-dai-qi-he-sheng-cheng-qi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="对象的一些方法...">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="小程序总结">
                         
-                        <span class="card-title">对象的一些方法...</span>
+                        <span class="card-title">小程序总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1084,7 +1149,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-14
                             </span>
                         <span class="publish-author">
                             
@@ -1097,8 +1162,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
+                    <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                        <span class="chip bg-color">小程序</span>
                     </a>
                     
                 </div>
