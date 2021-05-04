@@ -586,10 +586,38 @@
 <li>wx.getBackgroundAudioManager()</li>
 </ol>
 <ul>
-<li>获取<code>全局唯一</code>的背景音频管理器。小程序切入后台,如果音频处于播放状态,可以继续播放。但是后台状态不能通过调用API操纵音频的播放状态。若需要在小程序切后台后继续播放音频,需要在app.json中配置<code>&quot;requiredBackgroundModes&quot;: [&quot;audio&quot;, &quot;location&quot;]</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过wx.getBackgroundAudioManager()获取实例</span></span><br><span class="line"><span class="keyword">let</span> backgroundAudioManager = wx.getBackgroundAudioManager();</span><br><span class="line"><span class="comment">// 必须设置的属性</span></span><br><span class="line">backgroundAudioManager.src = musicUrl;</span><br><span class="line">backgroundAudioManager.title = musicName;</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>获取<code>全局唯一</code>的背景音频管理器。小程序切入后台,如果音频处于播放状态,可以继续播放。但是后台状态不能通过调用API操纵音频的播放状态。若需要在小程序切后台后继续播放音频,需要在app.json中配置<code>&quot;requiredBackgroundModes&quot;: [&quot;audio&quot;, &quot;location&quot;]</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过wx.getBackgroundAudioManager()获取实例</span></span><br><span class="line"><span class="keyword">let</span> backgroundAudioManager = wx.getBackgroundAudioManager();</span><br><span class="line"><span class="comment">// 必须设置的属性</span></span><br><span class="line">backgroundAudioManager.src = musicUrl; <span class="comment">// 音频地址</span></span><br><span class="line">backgroundAudioManager.title = musicName; <span class="comment">// 音频的名字</span></span><br></pre></td></tr></table></figure></li>
+<li>播放音乐: <code>backgroundAudioManager.play()</code></li>
+<li>暂停音乐: <code>backgroundAudioManager.pause()</code></li>
+<li>停止音乐: <code>backgroundAudioManager.stop()</code></li>
+<li>监听背景音频播放/暂停事件: <code>backgroundAudioManager.onPlay(callback)</code>/<code>backgroundAudioManager.onPause(callback)</code>解决页面显示是否播放状态和真实音乐播放状态不一致的问题。</li>
+<li>监听背景音频停止事件: <code>backgroundAudioManager.onStop(callback)</code>。</li>
+<li>监听背景音频播放进度更新事件，只有小程序在前台时会回调: <code>backgroundAudioManager.onTimeUpdate(callback)</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">backgroundAudioManager.onTimeUpdate(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 获取当前播放时间</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.backgrounAudioManager.currentTime);</span><br><span class="line">  <span class="comment">// 获取播放总时间</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.backgrounAudioManager.duration);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>监听背景音频播放自然结束事件: <code>backgroundAudioManager.onEnded(callback)</code>。</li>
 </ul>
+<ol start="15">
+<li>globalData</li>
+</ol>
+<ul>
+<li>整个小程序只有一个App实例,是全部页面共享的。可以通过<code>getApp方法</code>获取到全局唯一的App实例,获取App上的数据或者调用App上注册的函数。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line">globalData: &#123;</span><br><span class="line">  <span class="comment">// ... </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// xxx.js</span></span><br><span class="line"><span class="keyword">const</span> appInstance = getApp();</span><br><span class="line">appInstance.globalData.xxx;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="16">
+<li>使用第三方插件</li>
+</ol>
+<ul>
+<li>第一步: npm init -y</li>
+<li>第二步: 详情 –&gt; 本地设置 –&gt; 使用npm模块</li>
+<li>第三步: 下载插件并使用</li>
+<li>第四步: 工具 –&gt; 构建npm生成<code>miniprogram_npm</code>,不然会导致路径出错</li>
+</ul>
+<ol start="17">
+<li>动态获取元素宽高等信息</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> query = wx.createSelectorQuery();</span><br><span class="line">query.select(<span class="string">&#x27;类名&#x27;</span>).boundingClientRect();</span><br><span class="line">query.exec(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>res打印信息如下:</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/guTrZj"><img src="https://z3.ax1x.com/2021/05/05/guTrZj.png" alt="guTrZj.png"></a></p>
 <h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><ol>
 <li>什么是事件委托</li>
 </ol>
@@ -633,7 +661,48 @@
 <li>通过<code>id</code>标识当前组件,<strong>唯一的</strong></li>
 <li>通过<code>id</code>向event传参时会自动将Number转为String类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;target&#x27;</span>: &#123;</span><br><span class="line">  id: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&#x27;currentTarget&#x27;</span>: &#123;</span><br><span class="line">  id: <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>通过<code>data-key=&#39;value&#39;</code>,<strong>需要传入多个数据</strong></li>
-<li>通过<code>data-</code>的形式传参不会自动转换类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;target&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&#x27;currentTarget&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>通过<code>data-</code>的形式传参不会自动转换类型<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;target&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&#x27;currentTarget&#x27;</span>: &#123;</span><br><span class="line">  dataset: &#123;</span><br><span class="line">    key: <span class="string">&#x27;value&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="定义事件相关"><a href="#定义事件相关" class="headerlink" title="定义事件相关"></a>定义事件相关</h2></li>
+</ul>
+<ol>
+<li>分类</li>
+</ol>
+<ul>
+<li>标准DOM事件</li>
+<li>自定义事件</li>
+</ul>
+<ol start="2">
+<li>标准DOM事件</li>
+</ol>
+<ul>
+<li>click、input、change等。</li>
+<li>时间名固定,事件由浏览器触发</li>
+</ul>
+<ol start="3">
+<li>自定义事件</li>
+</ol>
+<ul>
+<li>绑定事件<ol>
+<li>事件名</li>
+<li>事件的回调</li>
+<li>订阅方: <code>PubSub.subscribe(&#39;事件名&#39;, (msg, data) =&gt; &#123;&#125;)</code></li>
+<li>订阅方是接收数据的一方</li>
+</ol>
+</li>
+<li>触发事件<ol>
+<li>事件名</li>
+<li>提供事件参数对象,等同于原生事件的event对象</li>
+<li>发布方: <code>PubSub.publish(&#39;事件名&#39;, data)</code></li>
+<li>发布方是提供数据的一方</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>注意:</li>
+</ol>
+<ul>
+<li>发布和订阅的事件名必须一致。</li>
+<li>因为订阅一次就会往对应的数组中存入一个回调函数,最后会将数组里的回调拿出来执行多次,所以每次订阅之后应该取消一次订阅<code>PubSub.unsubscribe(&#39;事件名&#39;)</code>。</li>
 </ul>
 
                 
