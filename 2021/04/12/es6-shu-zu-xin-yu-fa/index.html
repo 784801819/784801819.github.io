@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="ES6数组新语法, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="数组的一些方法..., W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ES6数组新语法 | W.BOWEN&#39;s blog</title>
+    <title>数组的一些方法... | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ES6数组新语法</h1>
+                    <h1 class="description center-align post-title">数组的一些方法...</h1>
                 </div>
             </div>
         </div>
@@ -480,14 +480,33 @@
 <p>扩展运算符(<code>...</code>)也可以将某些数据结构转为数组。如果一个对象没有部署遍历器接口(<code>Symbol.iterator</code>),就无法转换。Array.from方法还支持转换类似数组的对象(本质就是必须拥有<code>length</code>属性)。但是扩展运算符就无法转换。</p>
 <p><code>Array.from</code>还接收第二个参数,作用类似于数组的<code>map</code>方法,用于对每个元素进行处理,将处理后的值放入返回的数组。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.from(arrayLike, <span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="built_in">Array</span>.from(arrayLike).map(<span class="function"><span class="params">x</span> =&gt;</span> x * <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h3><p><code>Array.of()</code>方法用于将一组值,转换为数组。</p>
+<h2 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h2><p><code>Array.of()</code>方法用于将一组值,转换为数组。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>) <span class="comment">// [3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.of(<span class="number">3</span>) <span class="comment">// [3]</span></span><br></pre></td></tr></table></figure>
 <p>该方法弥补了数组构造函数<code>Array()</code>的不足。因为参数个数的不同导致<code>Array()</code>的行为有差异。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>() <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">2</span>) <span class="comment">// [ , ]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">2</span>, <span class="number">3</span>) <span class="comment">// [2, 3]</span></span><br></pre></td></tr></table></figure>
 <p>只有当参数个数不少于2时,Array()才会返回由参数组成的新数组。参数只有一个正整数时,实际上指定数组的长度。</p>
 <p><code>Array.of()</code>总是返回参数值组成的数组。如果没有参数,就返回一个空数组。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Arrayof</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 该方法等同于Array.of()</span></span><br><span class="line">  <span class="keyword">return</span> [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="数组实例的find-和findIndex"><a href="#数组实例的find-和findIndex" class="headerlink" title="数组实例的find()和findIndex()"></a>数组实例的find()和findIndex()</h3><ol>
+<h2 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h2><p>如果想用不同的分隔符分隔数组。可以使用<code>join()</code>方法。该方法接收一个参数,即字符串分隔符,返回包含所有项的字符串。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>];</span><br><span class="line">arr.join(<span class="string">&quot;||&quot;</span>); <span class="comment">// green||red||blue</span></span><br></pre></td></tr></table></figure>
+<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><ol>
+<li><code>concat()</code>方法可以在现有数组全部元素基础上创建一个<code>新数组</code>。首先会创建一个当前数组的副本。然后把它的参数添加到副本末尾,最后返回新数组。<strong>如果传入一个或多个数组,concat()会把这些<code>数组的每一项</code>都添加到结果数组中。如果参数不是数组,直接把他们添加到结果数组末尾</strong>(只能扁平化一层)。</li>
+<li><code>slice()</code>方法用于截取一个包含原数组中一个或多个元素的新数组(<strong>不会影响原数组</strong>)。接收一个或两个参数: 返回元素的<code>开始索引</code>和<code>结束索引</code>。如果只传一个参数,表示从开始索引位置截取到数组最后。如果有两个参数,表示从开始索引位置截取到数组结束索引位置(但不包含结束索引对应的元素)。</li>
+<li><code>splice()</code>方法主要目的是在数组中间插入元素(<strong>会影响原数组</strong>),但有三种不同的方式使用该方法:</li>
+</ol>
+<ul>
+<li><code>删除</code>: 需要给<code>splice()</code>传递两个参数: 要删除的第一个元素的位置和要删除的元素数量。可以从数组中删除任意多个元素。</li>
+<li><code>插入</code>: 需要给splice()传递三个参数: 开始位置、0(要删除的元素数量)、要插入的元素,可以在数组指定位置插入元素。第三个参数之后可以添加任意多个要插入的元素。<code>返回空数组</code>。</li>
+<li><code>替换</code>: 需要给splice()传递三个参数: 开始位置、要删除的元素数量、要插入的任意多个元素。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="comment">// 删除</span></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [2, 3]</span></span><br><span class="line"><span class="comment">// 插入</span></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [1, 2, 3]</span></span><br><span class="line"><span class="comment">// 替换</span></span><br><span class="line">arr.splice(<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// [4, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组实例的indexOf-和includes"><a href="#数组实例的indexOf-和includes" class="headerlink" title="数组实例的indexOf()和includes()"></a>数组实例的indexOf()和includes()</h2></li>
+</ul>
+<p>都接收两个参数: 要查找的元素和一个可选的起始搜索位置。</p>
+<ol>
+<li><code>indexOf()</code>返回要查找元素的在数组中的位置(索引),没找到则返回-1。</li>
+<li><code>includes()</code>返回布尔值,表示是否至少找到一个与指定元素匹配的项。</li>
+<li>在比较第一个参数和数组的每一项时,会使用<code>全等(===)</code>进行比较。</li>
+</ol>
+<h2 id="数组实例的find-和findIndex"><a href="#数组实例的find-和findIndex" class="headerlink" title="数组实例的find()和findIndex()"></a>数组实例的find()和findIndex()</h2><ol>
 <li>find()</li>
 </ol>
 <p><code>find</code>方法,用于找出第一个符合条件的数组成员。它的参数是一个回调函数,所有数组成员依次执行该回调函数,直到找到第一个返回<code>true</code>的成员,并返回该成员。如果没有符合条件的成员,则返回<code>undefined</code>。</p>
@@ -495,14 +514,14 @@
 <ol start="2">
 <li>findIndex()</li>
 </ol>
-<p><code>findIndex</code>方法与<code>find</code>方法类似,返回第一个符合条件数组成员的位置,如果没找到符合条件的成员,则返回<code>-1</code>。</p>
+<p><code>findIndex</code>方法与<code>find</code>方法类似,返回第一个符合条件数组成员的位置(索引),如果没找到符合条件的成员,则返回<code>-1</code>。</p>
 <p>这两个方法都接收第二个参数,用来绑定回调函数的<code>this</code>对象。</p>
 <p>这两个方法都可以发现<code>NaN</code>,弥补了数组的<code>indexOf</code>方法的不足。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="literal">NaN</span>].indexOf(<span class="literal">NaN</span>); <span class="comment">// -1</span></span><br><span class="line"></span><br><span class="line">[<span class="literal">NaN</span>].findIndex(<span class="function"><span class="params">y</span> =&gt;</span> <span class="built_in">Object</span>.is(<span class="literal">NaN</span>, y)) <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
 <p>代码中,<code>indexOf</code>方法无法识别数组的<code>NaN</code>成员,但是<code>findIndex</code>方法可以通过<code>Object.is</code>方法做到。</p>
 <p><code>Object.is(value1, value2)</code>: 判断两个值是否为同一个值。</p>
-<h3 id="数组实例的entries-keys-和values"><a href="#数组实例的entries-keys-和values" class="headerlink" title="数组实例的entries(),keys()和values()"></a>数组实例的entries(),keys()和values()</h3><p>三个方法用于遍历数组。它们都返回一个遍历器对象,可以用<code>for...of</code>循环进行遍历。<code>keys()</code>是对键名的遍历、<code>values()</code>是对键值的遍历、<code>entries()</code>是对键值对的遍历。</p>
-<h3 id="数组实例的flat"><a href="#数组实例的flat" class="headerlink" title="数组实例的flat()"></a>数组实例的flat()</h3><p>数组的成员有时候还是数组,<code>Array.prototype.flat()</code>用于将嵌套的数组’拉平’,变成一维数组。该方法<strong>返回一个新数组</strong>,对原数据没有影响。</p>
+<h2 id="数组实例的entries-keys-和values"><a href="#数组实例的entries-keys-和values" class="headerlink" title="数组实例的entries(),keys()和values()"></a>数组实例的entries(),keys()和values()</h2><p>三个方法用于遍历数组。它们都返回一个遍历器对象,可以用<code>for...of</code>循环进行遍历。<code>keys()</code>是对键名的遍历、<code>values()</code>是对键值的遍历、<code>entries()</code>是对键值对的遍历。</p>
+<h2 id="数组实例的flat"><a href="#数组实例的flat" class="headerlink" title="数组实例的flat()"></a>数组实例的flat()</h2><p>数组的成员有时候还是数组,<code>Array.prototype.flat()</code>用于将嵌套的数组’拉平’,变成一维数组。该方法<strong>返回一个新数组</strong>,对原数据没有影响。</p>
 <p><code>flat()</code>默认只会’拉平’一层,如果想要扁平化多层嵌套数组,可以将flat()方法的参数写成一个整数,表示想要扁平化的层数,默认为1。</p>
 <p>如果不管嵌套多少层都要转为一维数组,可以用<code>infinity</code>关键字作为参数。</p>
 <h3 id="Array-prototype-sort-的排序稳定性"><a href="#Array-prototype-sort-的排序稳定性" class="headerlink" title="Array.prototype.sort()的排序稳定性"></a>Array.prototype.sort()的排序稳定性</h3><p>默认情况下,<code>sort()</code>会按照升序重新排列数组元素,即最小的值在前面,最大的值在后面。<code>sort()</code>会在每项上调用String()转型函数,然后比较字符串来决定顺序。即使数组的元素都是数值,也会先把数值转换成字符串再比较、排序。</p>

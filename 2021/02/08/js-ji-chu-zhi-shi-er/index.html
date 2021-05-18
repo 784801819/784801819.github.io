@@ -539,16 +539,16 @@
 <blockquote>
 <p>什么是浅拷贝?如何实现浅拷贝?什么是深拷贝?如何实现深拷贝?</p>
 </blockquote>
-<p>对象类型在负值的过程中其实是复制了地址,从而导致改变了一方其他也都被改变的情况。</p>
+<p>对象类型在赋值的过程中其实是复制了地址,从而导致改变了一方其他也都被改变的情况。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = a</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>首先可以通过<code>Object.assign</code>来解决,<code>Object.assign</code>只会拷贝所有的属性值到新的对象中,如果属性值是对象或数组的话,拷贝的是地址,所以该方法为浅拷贝</p>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>首先可以通过<code>Object.assign</code>来解决,<code>Object.assign</code>只会拷贝所有的属性值到新的对象中,如果属性值是对象或数组的话,拷贝的是地址,所以该方法为浅拷贝。</p>
 <ul>
 <li>语法: Object.assign(目标对象, 源对象…)</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> result = <span class="built_in">Object</span>.assign(b, a)</span><br><span class="line">a.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// &#123;age: 18&#125;</span></span><br></pre></td></tr></table></figure>
 <p>还可以通过展开运算符<code>...</code>来实现浅拷贝</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<p>但是浅拷贝只能解决第一层的问题,如果接下去的值中还有对象的话,两者享有相同的地址,那么<code>Object.assign</code>就解决不了了,需要用到<code>深拷贝</code></p>
+<p>但是浅拷贝只能解决第一层的问题,如果接下去的值中还有对象的话,两者享有相同的地址,那么<code>Object.assign</code>就解决不了了,需要用到<code>深拷贝</code>。</p>
 <h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>可以通过JSON.parse(JSON.stringify(object))解决</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  age: <span class="number">18</span>,</span><br><span class="line">  job: &#123;</span><br><span class="line">    first: <span class="string">&#x27;student&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(a))</span><br><span class="line">a.job[first] = <span class="string">&#x27;Web&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b.job.first) <span class="comment">// student</span></span><br></pre></td></tr></table></figure>
 <p>该方法的局限性: </p>
@@ -577,6 +577,62 @@
 <li>总结: <strong>沿着__proto__查找的这条链就是原型链</strong></li>
 </ol>
 <p>通过图解深入理解原型和原型链<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/y6hltg"><img src="https://s3.ax1x.com/2021/02/15/y6hltg.png" alt="y6hltg.png"></a></p>
+<h2 id="补充原型"><a href="#补充原型" class="headerlink" title="补充原型"></a>补充原型</h2><ol>
+<li>同一个构造函数创建的两个实例对象共享同一个原型对象</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/gynjfK"><img src="https://z3.ax1x.com/2021/05/14/gynjfK.png" alt="gynjfK.png"></a></p>
+<ol start="2">
+<li><p>Object类型有一个方法<code>Object.getPrototypeOf()</code>,返回参数的内部特性<code>[[Prototype]]</code>,返回给定对象的原型,如果没有继承属性,返回<code>null</code></p>
+</li>
+<li><p>Object类型还有一个<code>setPrototypeOf()</code>方法,可以向实例的私有特性<code>[[Prototype]]</code>写入一个<br>新值。但是Object.setPrototypeOf()可能会严重影响代码性能。为了避免这一情况,可以通过<br>Object.create()来创建一个新对象,同时为其指定原型:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  num: <span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> person = <span class="built_in">Object</span>.create(obj);</span><br><span class="line">person.name = <span class="string">&quot;bowen&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// bowen</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(person) === obj); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
+<li><p>只要给对象实例添加一个属性,这个属性就会遮蔽原型对象上的同名属性,因为原型链查找规则总会从自身出发,如果自身没有该属性才会在原型上查找。可以通过<code>delete</code>操作符删除实例上的属性解决。</p>
+</li>
+<li><p>调用<code>hasOwnProperty()</code>能够判断访问的是实例对象还是原型的属性。只有在实例上的属性才会返回<code>true</code>。</p>
+</li>
+<li><p>原型和in操作符</p>
+</li>
+</ol>
+<ul>
+<li>两种方式使用in操作符: 单独使用和在for-in循环使用。<ol>
+<li>单独使用<code>in操作符</code>会在可以通过对象访问指定属性时返回<code>true</code>,无论该属性在实例上还是原型上。如果想确定某个属性是否存在于原型上,可以同时使用<code>hasOwnProperty()</code>和<code>in操作符</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// object为实例</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasProperty</span>(<span class="params">object, name</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 前面判断name不在实例对象上,后面的判断确定name属性在原型上</span></span><br><span class="line">  <span class="keyword">return</span> !object.hasOwnProperty(name) &amp;&amp; (name <span class="keyword">in</span> object);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在<code>for-in</code>循环中使用in操作符时,可以通过对象访问且可以被枚举的属性(<code>[[enumerable]]为true</code>)都会返回,包括实例和原型对象上的属性。</li>
+</ol>
+</li>
+</ul>
+<ol start="7">
+<li>每次定义一个属性和方法都会把Person.prototype重写一次,为了减少代码的冗余,可以这样写:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  name: <span class="string">&quot;bowen&quot;</span>,</span><br><span class="line">  age: <span class="number">23</span>,</span><br><span class="line">  sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+但是这会导致Person.prototype上的constructor属性丢失,不能指回构造函数Person了。只能往上一级原型对象上找到constructor属性。</li>
+</ol>
+<p>可以通过<code>Object.defineProperty()</code>方法来定义constructor属性:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(Person.prototype, <span class="string">&quot;constructor&quot;</span>, &#123;</span><br><span class="line">  enumerable: <span class="literal">false</span>, <span class="comment">// 设置该constructor属性为不可枚举的属性,for-in无法遍历</span></span><br><span class="line">  value: Person <span class="comment">// 使constructor指回Person构造函数</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>原型和继承关系</li>
+</ol>
+<p>原型与实例的关系可以通过两种方式来确定</p>
+<ul>
+<li>使用<code>instanceof操作符</code>,用于检测构造函数的prototype是否在某个实例对象的原型链上。返回布尔值。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A为实例,B为构造函数</span></span><br><span class="line">A <span class="keyword">instanceof</span> B;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>isPrototypeOf()</code>方法。原型链中的每个原型都可以调用这个方法。只要原型链中包含这个原型,该方法就返回true。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A为实例,B为构造函数</span></span><br><span class="line">B.prototype.isPrototypeOf(A);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="9">
+<li>关于方法</li>
+</ol>
+<ul>
+<li>子类有时候需要覆盖父类的方法,或增加父类没有的方法。因此,<strong>这些方法必须在原型赋值之后再添加到原型上。</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.prototype = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.prototype;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.subPrototype = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承SuperType</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line"><span class="comment">// 新方法</span></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.subPrototype;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 覆盖之前的新方法</span></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> sub = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(sub.getSubValue()); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>以对象字面量方式创建原型方法会破坏之前的原型链,因为相当于重写了原型链。</li>
+</ul>
+<ol start="10">
+<li>原型链问题</li>
+</ol>
+<ul>
+<li><p>原型中包含的引用值会在所有实例间共享,这也是为什么属性通常会在构造函数中定义而不是原型上。</p>
+</li>
+<li><p>子类在实例化时不能给父类的构造函数传参。</p>
+</li>
+</ul>
 
                 
             </div>
