@@ -465,14 +465,19 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="使用echarts的五个步骤"><a href="#使用echarts的五个步骤" class="headerlink" title="使用echarts的五个步骤"></a>使用echarts的五个步骤</h2><ol>
-<li>引入echarts.js文件</li>
-<li>准备一个呈现图表的盒子</li>
-<li>初始化echarts实例对象</li>
-<li>准备配置项option</li>
-<li>将配置项设置给echarts实例对象</li>
-</ol>
-<h2 id="option通用配置"><a href="#option通用配置" class="headerlink" title="option通用配置"></a>option通用配置</h2><ol>
-<li>标题: title</li>
+<li><p>引入echarts.js文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts&#x27;</span>;</span><br><span class="line"><span class="comment">// 挂载到Vue原型上</span></span><br><span class="line">Vue.prototype.$echarts = echarts;</span><br></pre></td></tr></table></figure></li>
+<li><p>准备一个呈现图表的盒子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;echarts&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>初始化echarts实例对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> myChart = <span class="built_in">this</span>.$echarts.init(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;.echarts&#x27;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>准备配置项option</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    option: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>将配置项设置给echarts实例对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">option &amp;&amp; myChart.setOption(option);</span><br></pre></td></tr></table></figure>
+<h2 id="option通用配置"><a href="#option通用配置" class="headerlink" title="option通用配置"></a>option通用配置</h2></li>
+<li><p>标题: title</p>
+</li>
 </ol>
 <ul>
 <li><p>文字样式</p>
@@ -507,7 +512,18 @@
 <li>legend中的data是一个数组</li>
 <li><strong>legend中的data的值需要和series数组中某组数据的name值一致</strong>。</li>
 </ul>
-
+<h2 id="直角坐标系的常用配置"><a href="#直角坐标系的常用配置" class="headerlink" title="直角坐标系的常用配置"></a>直角坐标系的常用配置</h2><ol>
+<li>配置一: gird<br>grid是用来控制直角坐标系的布局和大小。x轴和y轴就是在grid的基础上进行绘制的。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">option = &#123;</span><br><span class="line">  grid: &#123;</span><br><span class="line">    <span class="comment">// 显示grid</span></span><br><span class="line">    show: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// grid的边框的大小及颜色</span></span><br><span class="line">    borderWidth: ,</span><br><span class="line">    borderColor: ,</span><br><span class="line">    <span class="comment">// grid的位置和大小</span></span><br><span class="line">    left: ,</span><br><span class="line">    top: ,</span><br><span class="line">    right: ,</span><br><span class="line">    bottom: ,</span><br><span class="line">    width: ,</span><br><span class="line">    height: </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置二: 坐标轴axis<br>坐标轴分为x轴和y轴,一个grid中最多有两种位置的x轴和y轴。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">option = &#123;</span><br><span class="line">  xAxis: &#123;</span><br><span class="line">    <span class="comment">// category: 类目轴,该类型必须通过data设置类目数据</span></span><br><span class="line">    type: <span class="string">&#x27;category&#x27;</span>,</span><br><span class="line">    data: [],</span><br><span class="line">    <span class="comment">// 显示x轴的位置,顶部或底部</span></span><br><span class="line">    position: top/bottom</span><br><span class="line">  &#125;,</span><br><span class="line">  yAxis: &#123;</span><br><span class="line">    <span class="comment">// value: 数值轴,自动会从目标数据中读取数据</span></span><br><span class="line">    type: <span class="string">&#x27;value&#x27;</span>,</span><br><span class="line">    <span class="comment">// 显示y轴的位置,左边或右边</span></span><br><span class="line">    position: left/right</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>配置三: 区域缩放dataZoom<br>dataZoom用于区域缩放,对数据范围过滤,x轴和y轴都可以拥有。<strong>dataZoom是一个数组</strong>,意味着可以配置多个区域缩放器</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">option = &#123;</span><br><span class="line">  toolbox: &#123;</span><br><span class="line">    feature: &#123;</span><br><span class="line">      dataZoom: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  dataZoom: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 滑块</span></span><br><span class="line">      type: slider</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -1006,18 +1022,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/05/17/echarts-shu-ju-ke-shi-hua/">
+                <a href="/2021/05/19/vue-xiang-guan-zhi-shi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="echarts数据可视化">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Vue相关知识点">
                         
-                        <span class="card-title">echarts数据可视化</span>
+                        <span class="card-title">Vue相关知识点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1027,9 +1042,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-17
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-19
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1038,7 +1053,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

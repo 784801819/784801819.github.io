@@ -495,7 +495,7 @@
 <li>根据运算符优先级: !的优先级是大于==的,所有会先执行![]</li>
 <li>![]会先转换为boolean值,为false.相当于: [] == false</li>
 <li>根据规则来看,boolean值会转换为number, 相当于: [] == 0</li>
-<li>根据规则来看,如果一方为object另一方为string、number、symbol会将object转换为原始类型再判断,所以[]会通过.toString()方法转换为<code>&quot;</code>,相当于: “ == 0</li>
+<li>根据规则来看,如果一方为object另一方为string、number、symbol会将object转换为原始类型再判断,所以[]会通过.toString()方法转换为<code>&quot;&quot;</code>,相当于: “” == 0</li>
 <li>根据规则来看,string类型会转换为number类型,相当于: 0 == 0</li>
 <li>所以最终结果为<code>true</code></li>
 </ul>
