@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="typescript3（接口和对象类型）, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="typescript5（函数扩展）, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>typescript3（接口和对象类型） | W.BOWEN&#39;s blog</title>
+    <title>typescript5（函数扩展） | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">typescript3（接口和对象类型）</h1>
+                    <h1 class="description center-align post-title">typescript5（函数扩展）</h1>
                 </div>
             </div>
         </div>
@@ -468,29 +468,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="对象的类型"><a href="#对象的类型" class="headerlink" title="对象的类型"></a>对象的类型</h2><ul>
-<li><p>在typescript中，我们定义对象的方式要用关键字<code>interface（接口）</code></p>
-</li>
-<li><p>使用<code>interface</code>定义一种约束，让数据的结构满足约束的格式</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：使用接口约束的时候不能多也不能少</span></span><br><span class="line"><span class="comment">// 必须和接口保持一致</span></span><br><span class="line"><span class="keyword">interface</span> People &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wang: People = &#123;</span><br><span class="line">  name: <span class="string">&quot;wangbowen&quot;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>如果interface重名，会将重名interface进行合并，如下：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>通过<code>extends</code>关键字可以进行继承操作，如下：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> B <span class="keyword">extends</span> A &#123;</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> exObj: B = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h3></li>
-<li><p>使用?操作符表示该属性可以存在，也可以不存在</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> People &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span>,</span><br><span class="line">  sex?: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// sex为可选属性，所以不写也不会报错</span></span><br><span class="line"><span class="keyword">const</span> wang: People = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="任意属性"><a href="#任意属性" class="headerlink" title="任意属性"></a>任意属性</h3></li>
-<li><p>通过<code>[key: string]</code>来表示任意属性，其中key可以根据自己的喜好取名</p>
-</li>
-<li><p><strong>一旦定义了任意属性，那么确定的属性和可选属性的类型必须是他的类型的子集</strong></p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age?: <span class="built_in">number</span>,</span><br><span class="line">  [key: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  sex: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h3></li>
-<li><p>通过<code>readonly</code>表示该属性只能读取，无法赋值</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  <span class="keyword">readonly</span> name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span>,</span><br><span class="line">  sex?: <span class="built_in">string</span>,</span><br><span class="line">  [key: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> people: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span>,</span><br><span class="line">  habby: <span class="string">&#x27;sing&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(people.name); <span class="comment">// wangbowen</span></span><br><span class="line">people.name = <span class="string">&quot;lxd&quot;</span>; <span class="comment">// 这样是不被允许的，因为name为只读属性</span></span><br></pre></td></tr></table></figure>
-<h3 id="添加函数"><a href="#添加函数" class="headerlink" title="添加函数"></a>添加函数</h3></li>
+                <h2 id="函数的类型"><a href="#函数的类型" class="headerlink" title="函数的类型"></a>函数的类型</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = (name: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> name + age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数不能多也不能少，要按照约束来传</span></span><br><span class="line">fn(<span class="string">&#x27;wangbowen&#x27;</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="函数的可选参数"><a href="#函数的可选参数" class="headerlink" title="函数的可选参数"></a>函数的可选参数</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = (name: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>, sex?: <span class="built_in">string</span>): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (sex) &#123;</span><br><span class="line">    <span class="keyword">return</span> name + sex</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> name + age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn(<span class="string">&#x27;wangbowen&#x27;</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="函数参数的默认值"><a href="#函数参数的默认值" class="headerlink" title="函数参数的默认值"></a>函数参数的默认值</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = (name: <span class="built_in">string</span> = <span class="string">&quot;wangbowen&quot;</span>): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> name</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+<h2 id="接口定义函数"><a href="#接口定义函数" class="headerlink" title="接口定义函数"></a>接口定义函数</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Add &#123;</span><br><span class="line">  (name: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>): <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fn: Add = (name: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> name + age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------------------------</span></span><br><span class="line"><span class="keyword">interface</span> Info &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fn = (info: Info): <span class="function"><span class="params">void</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(info)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="定义剩余参数"><a href="#定义剩余参数" class="headerlink" title="定义剩余参数"></a>定义剩余参数</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = (arr: <span class="built_in">number</span>[], ...args: <span class="built_in">any</span>[]): <span class="built_in">any</span>[] =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> [...arr, ...args]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="匿名函数的参数"><a href="#匿名函数的参数" class="headerlink" title="匿名函数的参数"></a>匿名函数的参数</h2><ul>
+<li><code>匿名函数</code>的参数最好不要加类型注解，因为<code>匿名函数</code>会自动推断出类型</li>
+<li>这一过程称之为<code>上下文类型</code>，因为函数执行的上下文可以帮助确定参数和返回值的类型</li>
 </ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age?: <span class="built_in">number</span>,</span><br><span class="line">  cb: <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> people: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  cb: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;lxd&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
                 
             </div>
             <hr/>
@@ -516,7 +503,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2023/03/04/typescript3-jie-kou-he-dui-xiang-lei-xing/">https://784801819.github.io/2023/03/04/typescript3-jie-kou-he-dui-xiang-lei-xing/</a>
+                    <a href="https://784801819.github.io/2023/03/04/typescript5-han-shu-kuo-zhan/">https://784801819.github.io/2023/03/04/typescript5-han-shu-kuo-zhan/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -997,13 +984,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/04/typescript3-han-shu-kuo-zhan/">
+                <a href="/2023/03/04/typescript6-zu-he-lei-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="typescript3（函数扩展）">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="typescript6（组合类型）">
                         
-                        <span class="card-title">typescript3（函数扩展）</span>
+                        <span class="card-title">typescript6（组合类型）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1042,13 +1029,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/04/typescript3-shu-zu-lei-xing/">
+                <a href="/2023/03/04/typescript4-jie-kou-he-dui-xiang-lei-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="typescript3（数组类型）">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="typescript4（接口和对象类型）">
                         
-                        <span class="card-title">typescript3（数组类型）</span>
+                        <span class="card-title">typescript4（接口和对象类型）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

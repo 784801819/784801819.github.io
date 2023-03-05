@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="typescript2（任意类型）, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="typescript4（接口和对象类型）, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>typescript2（任意类型） | W.BOWEN&#39;s blog</title>
+    <title>typescript4（接口和对象类型） | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">typescript2（任意类型）</h1>
+                    <h1 class="description center-align post-title">typescript4（接口和对象类型）</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-02-21
+                    2023-03-04
                 </div>
                 
 
@@ -468,32 +468,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Any类型"><a href="#Any类型" class="headerlink" title="Any类型"></a>Any类型</h3><ul>
-<li>没有强制限定哪种类型,可以随时切换类型。可以对any进行任何操作</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span>  anys: <span class="built_in">any</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">anys = <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">anys = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果声明时没有指定类型默认为any</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> anys;</span><br><span class="line"></span><br><span class="line">anys = <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">anys = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="unknown类型"><a href="#unknown类型" class="headerlink" title="unknown类型"></a>unknown类型</h3><ul>
-<li><code>unknown类型</code>是typescript中比较特殊的一种类型，它用于描述类型的不确定的变量</li>
-<li>和<code>any类型</code>有点类似，但是unknown类型的值上做任何事情都是不合法的</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> unknownTest: unknown</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(unknownTest.length); <span class="comment">// 会报错“unknownn”的类型为“未知”</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果需要操作unknown类型的属性，要进行类型判断</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> unknownTest === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(unknownTest.length); <span class="comment">// 这样就可以正常使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="never类型"><a href="#never类型" class="headerlink" title="never类型"></a>never类型</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">mes: <span class="built_in">string</span> | <span class="built_in">number</span> | <span class="built_in">boolean</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(<span class="keyword">typeof</span> mes) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;string&#x27;</span>:</span><br><span class="line">      <span class="comment">// 程序员1的逻辑</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;number&#x27;</span>:</span><br><span class="line">      <span class="comment">// 程序员2的逻辑</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="comment">// 如果程序员3未进行逻辑处理，会导致报错 Type &#x27;boolean&#x27; is not assignable to type &#x27;never&#x27;.</span></span><br><span class="line">      <span class="keyword">const</span> check: <span class="built_in">never</span> = message;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handleMessage(<span class="number">1</span>); <span class="comment">// 被允许</span></span><br><span class="line">handleMessage(<span class="string">&#x27;2&#x27;</span>); <span class="comment">// 被允许</span></span><br><span class="line">handleMessage(<span class="literal">true</span>); <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
-<h3 id="元组类型（tuple）"><a href="#元组类型（tuple）" class="headerlink" title="元组类型（tuple）"></a>元组类型（tuple）</h3><ul>
-<li><p><strong>数组中通常建议存放相同类型的元素，不同类型的元素是不推荐存放在数组中</strong>（可以放到对象或元组中）</p>
+                <h2 id="对象的类型"><a href="#对象的类型" class="headerlink" title="对象的类型"></a>对象的类型</h2><ul>
+<li><p>在typescript中，我们定义对象的方式要用关键字<code>interface（接口）</code></p>
 </li>
-<li><p><strong>元组中每个元素都有自己特性的类型，根据索引值获取到的值可以确定对应的类型</strong></p>
+<li><p>使用<code>interface</code>定义一种约束，让数据的结构满足约束的格式</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：使用接口约束的时候不能多也不能少</span></span><br><span class="line"><span class="comment">// 必须和接口保持一致</span></span><br><span class="line"><span class="keyword">interface</span> People &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wang: People = &#123;</span><br><span class="line">  name: <span class="string">&quot;wangbowen&quot;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>如果interface重名，会将重名interface进行合并，如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>通过<code>extends</code>关键字可以进行继承操作，如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> B <span class="keyword">extends</span> A &#123;</span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> exObj: B = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h2></li>
+<li><p>使用?操作符表示该属性可以存在，也可以不存在</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> People &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span>,</span><br><span class="line">  sex?: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// sex为可选属性，所以不写也不会报错</span></span><br><span class="line"><span class="keyword">const</span> wang: People = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="任意属性"><a href="#任意属性" class="headerlink" title="任意属性"></a>任意属性</h2></li>
+<li><p>通过<code>[key: string]</code>来表示任意属性，其中key可以根据自己的喜好取名</p>
 </li>
-<li><p>在函数中使用<code>元组类型</code>是最多的（函数的返回值）</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useState</span>&lt;<span class="title">T</span>&gt;(<span class="params">state: T</span>): [<span class="title">T</span>, (<span class="params">newValue: T</span>) =&gt; <span class="title">void</span>] </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> stateValue = state;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setValue</span>(<span class="params">newValue: T</span>) </span>&#123;</span><br><span class="line">    stateValue = newValue;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> [stateValue, setValue];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这样就很容易区分，函数的返回值里各个元素的类型</span></span><br><span class="line"><span class="keyword">const</span> [count, setCount] = useState&lt;<span class="built_in">number</span>&gt;(<span class="number">0</span>);</span><br><span class="line">setCount(<span class="number">1</span>);</span><br><span class="line">count(); <span class="comment">// Type &#x27;Number&#x27; has no compatible call signatures.</span></span><br></pre></td></tr></table></figure>
-<h3 id="keyof-any"><a href="#keyof-any" class="headerlink" title="keyof any"></a>keyof any</h3></li>
-<li><p><code>keyof any</code>返回一个固定的约束类型: <strong>type key = string | number | symbol</strong></p>
-</li>
+<li><p><strong>一旦定义了任意属性，那么确定的属性和可选属性的类型必须是他的类型的子集</strong></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age?: <span class="built_in">number</span>,</span><br><span class="line">  [key: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  sex: <span class="string">&#x27;男&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="只读属性"><a href="#只读属性" class="headerlink" title="只读属性"></a>只读属性</h2></li>
+<li><p>通过<code>readonly</code>表示该属性只能读取，无法赋值</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  <span class="keyword">readonly</span> name: <span class="built_in">string</span>,</span><br><span class="line">  age: <span class="built_in">number</span>,</span><br><span class="line">  sex?: <span class="built_in">string</span>,</span><br><span class="line">  [key: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> people: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  age: <span class="number">18</span>,</span><br><span class="line">  habby: <span class="string">&#x27;sing&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(people.name); <span class="comment">// wangbowen</span></span><br><span class="line">people.name = <span class="string">&quot;lxd&quot;</span>; <span class="comment">// 这样是不被允许的，因为name为只读属性</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加函数"><a href="#添加函数" class="headerlink" title="添加函数"></a>添加函数</h2></li>
 </ul>
-
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> A &#123;</span><br><span class="line">  name: <span class="built_in">string</span>,</span><br><span class="line">  age?: <span class="built_in">number</span>,</span><br><span class="line">  cb: <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> people: A = &#123;</span><br><span class="line">  name: <span class="string">&#x27;wangbowen&#x27;</span>,</span><br><span class="line">  cb: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;lxd&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -519,7 +516,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2023/02/21/typescript2-ren-yi-lei-xing/">https://784801819.github.io/2023/02/21/typescript2-ren-yi-lei-xing/</a>
+                    <a href="https://784801819.github.io/2023/03/04/typescript4-jie-kou-he-dui-xiang-lei-xing/">https://784801819.github.io/2023/03/04/typescript4-jie-kou-he-dui-xiang-lei-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1000,13 +997,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/04/typescript3-shu-zu-lei-xing/">
+                <a href="/2023/03/04/typescript5-han-shu-kuo-zhan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="typescript3（数组类型）">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="typescript5（函数扩展）">
                         
-                        <span class="card-title">typescript3（数组类型）</span>
+                        <span class="card-title">typescript5（函数扩展）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1045,13 +1042,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/21/typescript1-ji-chu-lei-xing/">
+                <a href="/2023/03/04/typescript3-shu-zu-lei-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="typescript1（基础类型）">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="typescript3（数组类型）">
                         
-                        <span class="card-title">typescript1（基础类型）</span>
+                        <span class="card-title">typescript3（数组类型）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1062,7 +1059,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-04
                             </span>
                         <span class="publish-author">
                             
