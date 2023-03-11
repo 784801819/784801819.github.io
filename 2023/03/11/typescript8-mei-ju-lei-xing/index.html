@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="typescript7（class类）, W.BOWEN&#39;s blog">
+    <meta name="keywords" content="typescript8（枚举类型）, W.BOWEN&#39;s blog">
     <meta name="description" content="接受失败,但不选择放弃">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>typescript7（class类） | W.BOWEN&#39;s blog</title>
+    <title>typescript8（枚举类型） | W.BOWEN&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">typescript7（class类）</h1>
+                    <h1 class="description center-align post-title">typescript8（枚举类型）</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-08
+                    2023-03-11
                 </div>
                 
 
@@ -468,26 +468,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 在ts中需要声明成员属性</span></span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  age: <span class="built_in">number</span></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span>, age: <span class="built_in">number</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> Person(<span class="string">&#x27;wangbowen&#x27;</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="类的成员修饰符"><a href="#类的成员修饰符" class="headerlink" title="类的成员修饰符"></a>类的成员修饰符</h2><ul>
-<li><code>public</code>：修饰的是在任何地方可见、公有的属性和方法（默认）</li>
-<li><code>private</code>：修饰的是仅在同一类中可见、私有的属性和方法（类的内部访问）</li>
-<li><code>protected</code>：修饰的是仅在类自身及子类中可见、受保护的属性和方法</li>
+                <h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义枚举</span></span><br><span class="line"><span class="built_in">enum</span> Direction &#123;</span><br><span class="line">  <span class="comment">// 枚举类型的名称一般大写</span></span><br><span class="line">  UP,</span><br><span class="line">  DOWN,</span><br><span class="line">  LEFT,</span><br><span class="line">  RIGHT</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> d: Direction = Direction.UP;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">turnDirection</span>(<span class="params">direction: Direction</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(direction) &#123;</span><br><span class="line">    <span class="keyword">case</span> Direction.LEFT:</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;向左移动&#x27;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> Direction.RIGHT:</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;向右移动&#x27;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> Direction.UP:</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;向上移动&#x27;</span>)</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;向下移动&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>枚举默认值是从1开始递增,或者可以给枚举类型赋值</li>
 </ul>
-<h2 id="类中的getter和setter"><a href="#类中的getter和setter" class="headerlink" title="类中的getter和setter"></a>类中的getter和setter</h2><ul>
-<li>对属性的访问进行拦截操作</li>
-</ul>
-<h2 id="参数属性"><a href="#参数属性" class="headerlink" title="参数属性"></a>参数属性</h2><ul>
-<li>可以把一个构造函数参数转成一个同名同值得类属性</li>
-<li>通过在<strong>构造函数参数前添加一个可见性修饰符public、private、protected或readonly来创建参数属性，属性字段也会得到这些修饰符</strong></li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span>, <span class="keyword">private</span> age: <span class="built_in">number</span></span>)</span> &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> Person(<span class="string">&quot;wangbowen&quot;</span>, <span class="number">18</span>)</span><br><span class="line">p.name <span class="comment">// wangbowen</span></span><br></pre></td></tr></table></figure>
-<h2 id="抽象类abstract"><a href="#抽象类abstract" class="headerlink" title="抽象类abstract"></a>抽象类abstract</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象方法必须出现在抽象类中，类前面也需要加abstract关键字</span></span><br><span class="line"><span class="comment">// 抽象类不能被实例化</span></span><br><span class="line"><span class="comment">// 抽象类可以包含抽象方法，也可以包含有实现体的方法</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 抽象类中的方法，子类必须要实现</span></span><br><span class="line">  <span class="keyword">abstract</span> getArea(): <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 子类实现抽象类中的方法</span></span><br><span class="line">  <span class="function"><span class="title">getArea</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">getArea</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">200</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getarea</span>(<span class="params">shape: Shape</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> shape.getArea()</span><br><span class="line">&#125;</span><br><span class="line">getarea(<span class="keyword">new</span> Circle())</span><br><span class="line">getarea(<span class="keyword">new</span> Rectangle())</span><br></pre></td></tr></table></figure>
-<h2 id="鸭子类型检测"><a href="#鸭子类型检测" class="headerlink" title="鸭子类型检测"></a>鸭子类型检测</h2><ul>
-<li>只关心属性和行为,不关心具体是不是对应的类型<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span>, <span class="keyword">public</span> age: <span class="built_in">number</span></span>)</span> &#123;&#125;</span><br><span class="line">  <span class="function"><span class="title">running</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span>, <span class="keyword">public</span> age: <span class="built_in">number</span></span>)</span> &#123;&#125;</span><br><span class="line">  <span class="function"><span class="title">running</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printInfo</span>(<span class="params">params: Person</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(params);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 通过demo发现,类型为Person但是并未进行校验</span></span><br><span class="line">printInfo(<span class="keyword">new</span> Dog(<span class="string">&#x27;旺财&#x27;</span>, <span class="number">18</span>))</span><br><span class="line"><span class="keyword">const</span> person: Person = <span class="keyword">new</span> Dog(<span class="string">&#x27;旺财&#x27;</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="对象类型的属性修饰符"><a href="#对象类型的属性修饰符" class="headerlink" title="对象类型的属性修饰符"></a>对象类型的属性修饰符</h2></li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IKun = &#123;</span><br><span class="line">  <span class="comment">// 可选属性</span></span><br><span class="line">  name?: <span class="built_in">string</span>,</span><br><span class="line">  <span class="comment">// 只读属性</span></span><br><span class="line">  <span class="keyword">readonly</span> age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">enum</span> Direction &#123;</span><br><span class="line">  LEFT = <span class="number">100</span>,</span><br><span class="line">  RIGHT,</span><br><span class="line">  UP,</span><br><span class="line">  DOWN</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">enum</span> Direction1 &#123;</span><br><span class="line">  LEFT = <span class="string">&#x27;left&#x27;</span>,</span><br><span class="line">  RIGHT,</span><br><span class="line">  UP = <span class="string">&#x27;up&#x27;</span>,</span><br><span class="line">  DOWN</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                 
             </div>
             <hr/>
@@ -513,7 +498,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://784801819.github.io/2023/03/08/typescript7-class-lei/">https://784801819.github.io/2023/03/08/typescript7-class-lei/</a>
+                    <a href="https://784801819.github.io/2023/03/11/typescript8-mei-ju-lei-xing/">https://784801819.github.io/2023/03/11/typescript8-mei-ju-lei-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -994,13 +979,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/03/11/typescript8-mei-ju-lei-xing/">
+                <a href="/2023/03/11/typescript9-fan-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="typescript8（枚举类型）">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="typescript9（泛型）">
                         
-                        <span class="card-title">typescript8（枚举类型）</span>
+                        <span class="card-title">typescript9（泛型）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1039,13 +1024,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/04/typescript6-zu-he-lei-xing/">
+                <a href="/2023/03/08/typescript7-class-lei/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="typescript6（组合类型）">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="typescript7（class类）">
                         
-                        <span class="card-title">typescript6（组合类型）</span>
+                        <span class="card-title">typescript7（class类）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1056,7 +1041,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-08
                             </span>
                         <span class="publish-author">
                             
